@@ -16,7 +16,7 @@
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IMdmRestHandler, IMdmRestHandlerOptions } from '@maurodatamapper/mdm-resources';
+import { MdmRestHandler, RequestSettings} from '@maurodatamapper/mdm-resources';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BroadcastEvent } from '../broadcast/broadcast.model';
@@ -25,13 +25,13 @@ import { BroadcastService } from '../broadcast/broadcast.service';
 @Injectable({
   providedIn: 'root'
 })
-export class MdmRestHandlerService implements IMdmRestHandler {
+export class MdmRestHandlerService implements MdmRestHandler {
 
   constructor(
     private http: HttpClient,
     private broadcast: BroadcastService) { }
 
-  process(url: string, options: IMdmRestHandlerOptions) {
+  process(url: string, options: RequestSettings) {
     if (options.withCredentials === undefined ||
       options.withCredentials === null ||
       (options.withCredentials !== undefined && options.withCredentials === false)) {

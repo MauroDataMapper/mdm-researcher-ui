@@ -16,7 +16,8 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AdministrationSessionResponse, SignInError, SignInCredentials, SignInResponse, UserDetails, AuthenticatedSessionResponse, AuthenticatedSessionError } from '@mdm/services/security/security.model';
+import { SignInError, UserDetails, AuthenticatedSessionResponse, AuthenticatedSessionError } from '@mdm/services/security/security.model';
+import { AdminSessionResponse, LoginPayload, LoginResponse } from '@maurodatamapper/mdm-resources';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { MdmResourcesError } from '../mdm-resources/mdm-resources.model';
@@ -35,18 +36,18 @@ export class SecurityService {
    * @returns An observable to return a `UserDetails` object representing the signed in user.
    * @throws `SignInError` in the observable chain if sign-in failed.
    */
-  signIn(credentials: SignInCredentials): Observable<UserDetails> {
+  signIn(credentials: LoginPayload): Observable<UserDetails> {
     // This parameter is very important as we do not want to handle 401 if user credential is rejected on login modal form
     // as if the user credentials are rejected Back end server will return 401, we should not show the login modal form again
     return this.resources.security
       .login(credentials, { login: true })
       .pipe(
         catchError((error: HttpErrorResponse) => throwError(new SignInError(error))),
-        switchMap((signInResponse: SignInResponse) =>
+        switchMap((signInResponse: LoginResponse) =>
           this.resources.session
             .isApplicationAdministration()
             .pipe(
-              map((adminResponse: AdministrationSessionResponse) => {
+              map((adminResponse: AdminSessionResponse) => {
                 const signIn = signInResponse.body;
                 const admin = adminResponse.body;
                 const user: UserDetails = {
