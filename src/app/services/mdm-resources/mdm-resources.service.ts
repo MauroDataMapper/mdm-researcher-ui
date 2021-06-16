@@ -15,43 +15,11 @@
  */
 
 import { Injectable } from '@angular/core';
-import { MdmSecurityResource, MdmResourcesConfiguration, MdmSessionResource } from '@maurodatamapper/mdm-resources';
-import {
-  MdmClassifierResource,
-  MdmCatalogueItemResource,
-  MdmDataClassResource,
-  MdmDataElementResource,
-  MdmFolderResource,
-  MdmTerminologyResource,
-  MdmTermResource,
-  MdmCatalogueUserResource,
-  MdmProviderResource,
-  MdmImporterResource,
-  MdmAdminResource,
-  MdmDataModelResource,
-  MdmDataFlowResource,
-  MdmEnumerationValuesResource,
-  MdmDataTypeResource,
-  MdmCodeSetResource,
-  MdmFacetsResource,
-  MdmMetadataResource,
-  MdmSummaryMetadataResource,
-  MdmTreeItemResource,
-  MdmEditResource,
-  MdmSecurableResource,
-  MdmUserGroupsResource,
-  MdmVersionLinkResource,
-  MdmUserImageFileResource,
-  MdmReferenceDataModelResource,
-  MdmReferenceDataElementResource,
-  MdmReferenceDataTypeResource,
-  MdmReferenceDataValueResource,
-  MdmVersioningResource,
-  MdmApiPropertyResources,
-  MdmSubscribedCataloguesResource,
-  MdmProfileResource,
-  MdmVersionedFolderResource
-} from '@maurodatamapper/mdm-resources';
+import {  MdmSecurityResource, 
+          MdmResourcesConfiguration, 
+          MdmSessionResource, 
+          MdmCatalogueItemResource
+ } from '@maurodatamapper/mdm-resources';
 import { MdmRestHandlerService } from './mdm-rest-handler.service';
 
 @Injectable({
@@ -62,9 +30,7 @@ export class MdmResourcesService {
   security = new MdmSecurityResource(this.resourcesConfig, this.restHandler);
   session = new MdmSessionResource(this.resourcesConfig, this.restHandler);
   catalogueItem = new MdmCatalogueItemResource(this.resourcesConfig, this.restHandler);
-  tree = new MdmTreeItemResource(this.resourcesConfig, this.restHandler);
-  dataModel = new MdmDataModelResource(this.resourcesConfig, this.restHandler);
-  
+
   constructor(
     private resourcesConfig: MdmResourcesConfiguration, 
     private restHandler: MdmRestHandlerService) { }
