@@ -30,12 +30,17 @@ import { MdmResourcesModule } from './modules/mdm-resources/mdm-resources.module
 import { environment } from '@env/environment';
 import { HttpRequestProgressInterceptor } from './interceptors/http-request-progress.interceptor';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { SearchComponent } from './search/search.component';
+import { FormsModule } from '@angular/forms';
+import { CardDisplayComponent } from './card-display/card-display.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     AppContainerComponent,
-    UiViewComponent
+    UiViewComponent,
+    SearchComponent,
+    CardDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,8 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
       useHash: true,
       otherwise: '/not-found'
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [
     { 

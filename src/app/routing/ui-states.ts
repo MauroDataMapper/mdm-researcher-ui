@@ -23,6 +23,7 @@ import { NotImplementedComponent } from '@mdm/error/not-implemented/not-implemen
 import { NotAuthorizedComponent } from '@mdm/error/not-authorized/not-authorized.component';
 import { ServerErrorComponent } from '@mdm/error/server-error/server-error.component';
 import { NotFoundComponent } from '@mdm/error/not-found/not-found.component';
+import { SearchComponent } from '@mdm/search/search.component';
 
 export const states: Ng2StateDeclaration[] = [
   {
@@ -47,6 +48,11 @@ export const states: Ng2StateDeclaration[] = [
     name: 'app.container.about',
     url: '/about',
     component: AboutComponent
+  },
+  {
+    name: 'app.container.search',
+    url: '/search',
+    component: SearchComponent
   },
   {
     name: 'app.container.notImplemented',

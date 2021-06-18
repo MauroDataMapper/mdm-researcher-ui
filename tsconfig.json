@@ -10,7 +10,6 @@
     "outDir": "./dist/",
     "emitDecoratorMetadata" : true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,

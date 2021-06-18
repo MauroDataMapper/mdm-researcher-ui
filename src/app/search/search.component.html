@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-12">
+        <h1>Search Page</h1>
+
+        <div class="d-flex justify-content-center">
+            <input type="text"  id="searchBarInput" [(ngModel)]="searchTerm" > 
+            <button (click)="onSearchClick()" class="ml-1">Search!</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div *ngIf="!neverSearched">
+            <div *ngIf="searchResults.length > 0; else elseBlock" >
+                <div *ngFor="let result of searchResults">
+                    <mdm-card-display [item]="result"></mdm-card-display>
+                </div>
+            </div>
+        
+            <ng-template #elseBlock>There are no results for term {{searchTerm}}.</ng-template>
+        </div>
+    </div>
+</div>

@@ -15,7 +15,11 @@
  */
 
 import { Injectable } from '@angular/core';
-import { MdmSecurityResource, MdmResourcesConfiguration, MdmSessionResource } from '@maurodatamapper/mdm-resources';
+import {  MdmSecurityResource, 
+          MdmResourcesConfiguration, 
+          MdmSessionResource, 
+          MdmCatalogueItemResource
+ } from '@maurodatamapper/mdm-resources';
 import { MdmRestHandlerService } from './mdm-rest-handler.service';
 
 @Injectable({
@@ -25,6 +29,7 @@ export class MdmResourcesService {
 
   security = new MdmSecurityResource(this.resourcesConfig, this.restHandler);
   session = new MdmSessionResource(this.resourcesConfig, this.restHandler);
+  catalogueItem = new MdmCatalogueItemResource(this.resourcesConfig, this.restHandler);
 
   constructor(
     private resourcesConfig: MdmResourcesConfiguration, 
