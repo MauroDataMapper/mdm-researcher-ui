@@ -20,7 +20,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:8082/api',
+  apiEndpoint: 'http://localhost:8080/api',
   themeName: 'default',
   name: 'development',
   appTitle: 'Researcher UI',
