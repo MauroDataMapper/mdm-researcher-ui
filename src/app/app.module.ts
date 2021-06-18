@@ -31,14 +31,16 @@ import { environment } from '@env/environment';
 import { HttpRequestProgressInterceptor } from './interceptors/http-request-progress.interceptor';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { SearchComponent } from './search/search.component';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { CardDisplayComponent } from './card-display/card-display.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     AppContainerComponent,
     UiViewComponent,
-    SearchComponent
+    SearchComponent,
+    CardDisplayComponent
   ],
   imports: [
     BrowserModule,

@@ -9,10 +9,12 @@ import { MdmResourcesService } from "@mdm/services/mdm-resources/mdm-resources.s
 export class SearchComponent implements OnInit {
   searchTerm: string = "";
   searchResults: any[];
+  neverSearched: boolean;
 
     constructor(public resources: MdmResourcesService) { }
 
   ngOnInit(): void {
+    this.neverSearched = true;
   }
 
   onSearchClick(): void {
@@ -20,6 +22,7 @@ export class SearchComponent implements OnInit {
 
     if (this.searchTerm !== "") {
       this.doSearch().subscribe(res => {
+        this.neverSearched = false;
         this.searchResults = res.body.items;
         console.log(this.searchResults);
       });
