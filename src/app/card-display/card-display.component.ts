@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { catalogueItem } from '@shared/shared-classes';
 
 @Component({
   selector: 'mdm-card-display',
@@ -13,13 +14,4 @@ export class CardDisplayComponent implements OnInit {
   ngOnInit(): void {
   }
 
-}
-
-export class catalogueItem {
-  id: string;
-  domainType: string;
-  label: string;
-  model: string;
-  breadcrumbs: any[];
-  description: string;
 }
