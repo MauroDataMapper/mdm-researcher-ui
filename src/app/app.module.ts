@@ -32,7 +32,8 @@ import { HttpRequestProgressInterceptor } from './interceptors/http-request-prog
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
-import { CardDisplayComponent } from './card-display/card-display.component'; 
+import { CardDisplayComponent } from './card-display/card-display.component';
+import { LinkElementComponent } from './shared/utility/link-element/link-element.component'; 
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CardDisplayComponent } from './card-display/card-display.component';
     AppContainerComponent,
     UiViewComponent,
     SearchComponent,
-    CardDisplayComponent
+    CardDisplayComponent,
+    LinkElementComponent
   ],
   imports: [
     BrowserModule,

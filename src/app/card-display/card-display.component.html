@@ -3,7 +3,7 @@
     >
     <div>
     <div class="card-body">
-        <h5 class="card-title">{{item.label}}</h5>
+        <h5 class="card-title"><mdm-link-element [item]="item"></mdm-link-element></h5>
         <h6 class="card-subtitle mb-2 text-muted">DomainType: {{item.domainType}}</h6>
         <h6 *ngIf="item.breadcrumbs !== undefined" class="card-footer mb-1 text-muted">{{item.breadcrumbs}}</h6>
         <p class="card-text">{{item.description}}</p>
