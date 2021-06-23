@@ -33,7 +33,8 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { CardDisplayComponent } from './card-display/card-display.component';
-import { LinkElementComponent } from './shared/utility/link-element/link-element.component'; 
+import { LinkElementComponent } from './shared/utility/link-element/link-element.component';
+import { DataModelComponent } from './data-model/data-model.component'; 
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { LinkElementComponent } from './shared/utility/link-element/link-element
     UiViewComponent,
     SearchComponent,
     CardDisplayComponent,
-    LinkElementComponent
+    LinkElementComponent,
+    DataModelComponent
   ],
   imports: [
     BrowserModule,

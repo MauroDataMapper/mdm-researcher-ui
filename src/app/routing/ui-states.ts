@@ -24,6 +24,7 @@ import { NotAuthorizedComponent } from '@mdm/error/not-authorized/not-authorized
 import { ServerErrorComponent } from '@mdm/error/server-error/server-error.component';
 import { NotFoundComponent } from '@mdm/error/not-found/not-found.component';
 import { SearchComponent } from '@mdm/search/search.component';
+import { DataModelComponent } from '@mdm/data-model/data-model.component';
 
 export const states: Ng2StateDeclaration[] = [
   {
@@ -53,6 +54,11 @@ export const states: Ng2StateDeclaration[] = [
     name: 'app.container.search',
     url: '/search',
     component: SearchComponent
+  },
+  {
+    name: 'app.container.dataModel',
+    url: '/dataModel/:id',
+    component: DataModelComponent
   },
   {
     name: 'app.container.notImplemented',

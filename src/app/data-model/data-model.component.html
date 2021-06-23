@@ -1,0 +1,20 @@
+<table class="table" *ngIf="dataLoaded | async">
+    <thead>
+        <tr>
+        <th scope="row">Aliases</th>
+        <th scope="row">Description</th>
+        <th scope="row">Author</th>
+        <th scope="row">Finalised?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td *ngIf="this.dataModel.aliases; else noAliasBlock">{{ this.dataModel.aliases }}</td>
+        <ng-template #noAliasBlock><td>No aliases defined.</td></ng-template>
+
+        <td>{{ this.dataModel.description }}</td>
+        <td>{{ this.dataModel.author }}</td>
+        <td>{{ this.dataModel.finalised }}</td>
+        </tr>
+    </tbody>
+</table>

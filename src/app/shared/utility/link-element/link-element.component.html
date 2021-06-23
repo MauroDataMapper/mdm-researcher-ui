@@ -1,1 +1,1 @@
-<a [href]="linkUri">{{ item.label }}</a>
+<a uiSref="app.container.dataModel" [uiParams]="{ id: item.id }">{{ item.label }}</a>

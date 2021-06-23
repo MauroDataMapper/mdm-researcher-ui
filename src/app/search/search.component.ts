@@ -18,19 +18,16 @@ export class SearchComponent implements OnInit {
   }
 
   onSearchClick(): void {
-    console.log('You are searching ' + this.searchTerm);
-
     if (this.searchTerm !== "") {
       this.doSearch().subscribe(res => {
         this.neverSearched = false;
         this.searchResults = res.body.items;
-        console.log(this.searchResults);
       });
     }
   }
 
   doSearch(): any {
-    let result = this.resources.catalogueItem.search(
+    return this.resources.catalogueItem.search(
             {
               classifierFilter: null,
               classifiers: [],
@@ -47,7 +44,5 @@ export class SearchComponent implements OnInit {
               pageSize: 10,
               searchTerm: this.searchTerm
             });
-
-    return result;
   }
 }
