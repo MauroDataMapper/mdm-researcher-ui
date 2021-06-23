@@ -1,0 +1,42 @@
+<div *ngIf="dataLoaded | async">
+    <div class="row">
+        <div class="col-12">
+            <h1>{{ dataElement.label }}</h1>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-4">
+            <h4>Id</h4>
+        </div>
+        <div class="col-8">
+            {{ dataElement.id }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h4>Description</h4>
+        </div>
+        <div class="col-8">
+            <p>{{ dataElement.description }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h4>Hierarchy</h4>
+        </div>
+        <div class="col-8">
+            <ul>
+                <li *ngFor="let breadcrumb of dataElement.breadcrumbs">{{ breadcrumb.label }} (Id: {{ breadcrumb.id }})</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h4>DataType definition</h4>
+        </div>
+        <div class="col-8">
+            <p><b>domainType: </b>{{ dataElement.dataType.domainType }}</p>
+            <p><b>type: </b>{{ dataElement.dataType.label }}</p>
+        </div>
+    </div>
+</div>
