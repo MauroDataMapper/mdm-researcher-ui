@@ -25,6 +25,7 @@ import { ServerErrorComponent } from '@mdm/error/server-error/server-error.compo
 import { NotFoundComponent } from '@mdm/error/not-found/not-found.component';
 import { SearchComponent } from '@mdm/search/search.component';
 import { DataModelComponent } from '@mdm/data-model/data-model.component';
+import { DataElementComponent } from '@mdm/data-element/data-element.component';
 
 export const states: Ng2StateDeclaration[] = [
   {
@@ -59,6 +60,11 @@ export const states: Ng2StateDeclaration[] = [
     name: 'app.container.dataModel',
     url: '/dataModel/:id',
     component: DataModelComponent
+  },
+  {
+    name: 'app.container.dataElement',
+    url: '/dataElement/:dataModelId/:dataClassId/:id',
+    component: DataElementComponent
   },
   {
     name: 'app.container.notImplemented',

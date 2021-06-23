@@ -34,7 +34,8 @@ import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { CardDisplayComponent } from './card-display/card-display.component';
 import { LinkElementComponent } from './shared/utility/link-element/link-element.component';
-import { DataModelComponent } from './data-model/data-model.component'; 
+import { DataModelComponent } from './data-model/data-model.component';
+import { DataElementComponent } from './data-element/data-element.component'; 
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DataModelComponent } from './data-model/data-model.component';
     SearchComponent,
     CardDisplayComponent,
     LinkElementComponent,
-    DataModelComponent
+    DataModelComponent,
+    DataElementComponent
   ],
   imports: [
     BrowserModule,

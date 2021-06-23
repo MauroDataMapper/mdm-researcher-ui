@@ -9,10 +9,38 @@ import { catalogueItem } from '@shared/shared-classes';
 export class LinkElementComponent implements OnInit {
   @Input() item: catalogueItem;
 
-  linkUri: string;
+  uiParams: any;
+  uiRef: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    switch (this.item.domainType) {
+      case "DataModel": {
+        this.uiParams = { id: this.item.id };
+        this.uiRef = "app.container.dataModel";
+        break;
+      }
+      case "DataClass": {
+        this.uiParams = { dataModelId: this.item.model, id: this.item.id };
+        this.uiRef = "app.container.dataClass";
+        break;
+      }
+      case "DataElement": {
+        let dataModel = this.item.breadcrumbs.filter(this.getDataModelBreadcrumb);
+        let dataClass = this.item.breadcrumbs.filter(this.getDataClassBreadcrumb);
+
+        this.uiParams = { dataModelId: dataModel[0].id, dataClassId: dataClass[0].id, id: this.item.id };
+        this.uiRef = "app.container.dataElement";
+        break;
+      }
+    }
+  }
+
+  getDataModelBreadcrumb(element): boolean {
+    return element.domainType === "DataModel";
+  }
+  getDataClassBreadcrumb(element): boolean {
+    return element.domainType === "DataClass";
   }
 }
