@@ -27,11 +27,11 @@
     </p>
     <p>
         <b>Source: </b>
-        {{ link.sourceMultiFacetAwareItem.label }} (Id: {{link.sourceMultiFacetAwareItem.id}})
+        <mdm-link-element [item]="link.sourceMultiFacetAwareItem"></mdm-link-element>
     </p>
     <p>
         <b>Target: </b>
-        {{ link.targetMultiFacetAwareItem.label }} (Id: {{link.targetMultiFacetAwareItem.id}})
+        <mdm-link-element [item]="link.targetMultiFacetAwareItem"></mdm-link-element>
     </p>
     <p>
         <b>Confirmed: </b>
