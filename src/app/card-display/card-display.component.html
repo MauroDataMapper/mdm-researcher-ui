@@ -4,6 +4,7 @@
         <span class="ml-4 badge badge-pill badge-info">{{item.domainType}}</span>
     </div>
     <div class="card-body">
+        <!-- breadcrumb link does not work for DataElement
         <nav *ngIf="item.breadcrumbs !== undefined" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li *ngFor="let breadcrumb of item.breadcrumbs" class="breadcrumb-item">
@@ -11,6 +12,7 @@
                 </li>
             </ol>
         </nav>
+        -->
         <p class="card-text">{{item.description}}</p>
     </div>
 </div>
