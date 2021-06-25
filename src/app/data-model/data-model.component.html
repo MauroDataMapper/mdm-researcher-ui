@@ -18,3 +18,23 @@
         </tr>
     </tbody>
 </table>
+
+<h2>Links</h2>
+<div *ngFor="let link of semanticLinks">
+    <p>
+        <b>Type: </b>
+        {{ link.linkType }}
+    </p>
+    <p>
+        <b>Source: </b>
+        {{ link.sourceMultiFacetAwareItem.label }} (Id: {{link.sourceMultiFacetAwareItem.id}})
+    </p>
+    <p>
+        <b>Target: </b>
+        {{ link.targetMultiFacetAwareItem.label }} (Id: {{link.targetMultiFacetAwareItem.id}})
+    </p>
+    <p>
+        <b>Confirmed: </b>
+        {{ !link.unconfirmed }}
+    </p>
+</div>
