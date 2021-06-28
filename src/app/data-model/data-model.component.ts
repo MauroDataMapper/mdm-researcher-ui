@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MdmResourcesService } from '@mdm/services/mdm-resources/mdm-resources.service';
-import { DataModelDetail, DataModelDetailResponse, CatalogueItem } from '@maurodatamapper/mdm-resources'; 
+import { DataModelDetail, DataModelDetailResponse, CatalogueItem, ModelDomainType } from '@maurodatamapper/mdm-resources'; 
 import { UIRouterGlobals, UIRouter } from '@uirouter/core';
 
 @Component({
@@ -13,6 +13,8 @@ export class DataModelComponent implements OnInit {
   catalogueItem: CatalogueItem;
   dataModelId: string;
   semanticLinks: any[] = [];
+  profileProviders: any[] = [];
+  profileSections: any[] = [];
   dataLoaded: Promise<boolean>;
 
   constructor(
@@ -41,6 +43,27 @@ export class DataModelComponent implements OnInit {
             this.semanticLinks = resp.body.items;
           });
         
+          //Get all dynamic profile providers
+          this.resourcesService.profileResource.providerDynamic()
+          .subscribe((resp) => {
+            resp.body.forEach((provider) => {
+              //if dynamic profile provider applies to DataModel then keep it
+              if (provider.domains.includes("DataModel")) {
+                this.profileProviders.push(provider);
+              }
+            });
+
+            //For each dynamic profile provider that applies to DataModel, list the profile sections in
+            //this.profileSections, indexed by [provider.namespace | provider.name]
+            this.profileProviders.forEach((provider) => {
+              this.resourcesService.profileResource
+              .profile(ModelDomainType.DataModels, this.dataModel.id, provider.namespace, provider.name)
+              .subscribe((resp) => {
+                this.profileSections[provider.namespace + '|' + provider.name] = resp.body.sections;
+              });
+            });
+          });
+
         this.dataLoaded = Promise.resolve(true);
       });
   }
