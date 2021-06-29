@@ -3,8 +3,7 @@
         <h1>Search Page</h1>
 
         <div class="d-flex justify-content-center">
-            <input type="text"  id="searchBarInput" [(ngModel)]="searchTerm" class="form-control" placeholder="I'm looking for..."> 
-            <button (click)="onSearchClick()" class="ml-1">Search!</button>
+            <input #searchInputControl type="text"  id="searchBarInput" [(ngModel)]="searchTerm" class="form-control" placeholder="I'm looking for..."> 
         </div>
     </div>
 </div>
@@ -12,10 +11,23 @@
     <div class="col-12">
         <div *ngIf="!neverSearched">
             <div *ngIf="searchResults.length > 0; else elseBlock" >
+                <div class="heading-container">
+                    <h4 class="mt-4">Search result(s) <span class="badge badge-element-count">{{searchCount}}</span> </h4>
+                  </div>                
                 <div *ngFor="let result of searchResults">
                     <mdm-card-display [item]="result"></mdm-card-display>
                 </div>
             </div>
+
+            <div class="mdm--mat-pagination">
+                <search-paginator #searchPaginator *ngIf="formData.showSearchResult"
+                                [pageSizeOptions]="[5, 10, 20, 50]"
+                                [length]="searchCount"
+                                [pageSize]="10"
+                                (page)="getServerData($event)"
+                                showFirstLastButtons>
+                </search-paginator>
+            </div>       
         
             <ng-template #elseBlock>There are no results for term {{searchTerm}}.</ng-template>
         </div>

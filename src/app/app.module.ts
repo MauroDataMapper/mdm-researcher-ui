@@ -25,6 +25,7 @@ import { AppContainerComponent } from './app-container/app-container.component';
 import { UiViewComponent } from './shared/ui-view/ui-view.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MaterialModule } from './modules/material/material.module';
 import { ModalModule } from './modules/modal/modal.module';
 import { MdmResourcesModule } from './modules/mdm-resources/mdm-resources.module';
 import { environment } from '@env/environment';
@@ -33,9 +34,11 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { CardDisplayComponent } from './card-display/card-display.component';
+import { SearchPaginatorComponent } from './shared/search-paginator/search-paginator';
 import { LinkElementComponent } from './shared/utility/link-element/link-element.component';
 import { DataModelComponent } from './data-model/data-model.component';
 import { DataElementComponent } from './data-element/data-element.component'; 
+
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { DataElementComponent } from './data-element/data-element.component';
     UiViewComponent,
     SearchComponent,
     CardDisplayComponent,
+    SearchPaginatorComponent,
     LinkElementComponent,
     DataModelComponent,
     DataElementComponent
@@ -51,6 +55,7 @@ import { DataElementComponent } from './data-element/data-element.component';
   imports: [
     BrowserModule,
     DashboardModule,
+    MaterialModule,
     ModalModule,
     HttpClientModule,
     MdmResourcesModule.forRoot({
