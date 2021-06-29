@@ -4,6 +4,9 @@
         <span class="ml-4 badge badge-pill badge-info">{{this.dataElement.domainType}}</span>
     </div>
     <div class="card-body">
+        <ul *ngFor="let classifier of this.dataElement.classifiers">
+            <li>{{ classifier.label }}</li>
+        </ul>
         <p class="card-text">{{this.dataElement.description}}</p>
 
         <div class="row">

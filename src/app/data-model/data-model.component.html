@@ -14,6 +14,9 @@
     <div class="card-body">
         <p><strong>Author</strong>: {{ this.dataModel.author }}</p>
         <p *ngIf="this.dataModel.aliases"><strong>Aliases</strong>: {{ this.dataModel.aliases }}</p>
+        <ul *ngFor="let classifier of this.dataModel.classifiers">
+            <li>{{ classifier.label }}</li>
+        </ul>
         <p class="card-text">{{this.dataModel.description}}</p>
 
         <h2>Links</h2>
