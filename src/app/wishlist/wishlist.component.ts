@@ -21,8 +21,8 @@ export class WishlistComponent implements OnInit {
   }
 
   clearWishlist() {
-    this.localStorage.clear();
     this.localWishlist = [];
+    this.localStorage.setItem('wishlist', this.localWishlist);
   }
 
   removeElement(element: catalogueItem) {
