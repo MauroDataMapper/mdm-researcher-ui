@@ -37,7 +37,9 @@ import { CardDisplayComponent } from './card-display/card-display.component';
 import { SearchPaginatorComponent } from './shared/search-paginator/search-paginator';
 import { LinkElementComponent } from './shared/utility/link-element/link-element.component';
 import { DataModelComponent } from './data-model/data-model.component';
-import { DataElementComponent } from './data-element/data-element.component'; 
+import { DataElementComponent } from './data-element/data-element.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component'; 
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { DataElementComponent } from './data-element/data-element.component';
     SearchPaginatorComponent,
     LinkElementComponent,
     DataModelComponent,
-    DataElementComponent
+    DataElementComponent,
+    WishlistComponent,
+    AddToWishlistButtonComponent
   ],
   imports: [
     BrowserModule,
