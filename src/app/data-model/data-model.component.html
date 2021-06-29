@@ -6,6 +6,67 @@
     </div>
 </div>
 
+<div class="card mt-3" *ngIf="dataLoaded | async">
+    <div class="card-header">
+        <span>{{ this.dataModel.label }}</span>
+        <span class="ml-4 badge badge-pill badge-info">{{this.dataModel.domainType}}</span>
+    </div>
+    <div class="card-body">
+        <p><strong>Author</strong>: {{ this.dataModel.author }}</p>
+        <p *ngIf="this.dataModel.aliases"><strong>Aliases</strong>: {{ this.dataModel.aliases }}</p>
+        <p class="card-text">{{this.dataModel.description}}</p>
+
+        <h2>Links</h2>
+        <div *ngFor="let link of semanticLinks">
+            <p>
+                <b>Type: </b>
+                {{ link.linkType }}
+            </p>
+            <p>
+                <b>Source: </b>
+                <mdm-link-element [item]="link.sourceMultiFacetAwareItem"></mdm-link-element>
+            </p>
+            <p>
+                <b>Target: </b>
+                <mdm-link-element [item]="link.targetMultiFacetAwareItem"></mdm-link-element>
+            </p>
+            <p>
+                <b>Confirmed: </b>
+                {{ !link.unconfirmed }}
+            </p>
+        </div>   
+        
+        <div *ngFor="let provider of profileProviders">
+          <h3>{{ provider.displayName }}</h3>
+          <div *ngFor="let section of profileSections[provider.namespace + '|' + provider.name]">
+            <div>
+                
+            </div>
+            <h3>{{ section.sectionName }}</h3>
+            <p>{{ section.sectionDescription }}</p>
+
+            <table *ngIf="section.fields.length > 0" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Current Value</th>
+                    </tr>    
+                 </thead> 
+                 <tbody>
+                    <tr *ngFor="let field of section.fields">
+                        <td>{{ field.fieldName }}</td>
+                        <td>{{ field.description }}</td>
+                        <td>{{ field.currentValue }}</td>
+                    </tr>
+                 </tbody>  
+            </table>            
+          </div>
+        </div>  
+    </div>
+</div>
+
+<!--
 <table class="table" *ngIf="dataLoaded | async">
     <thead>
         <tr>
@@ -27,22 +88,6 @@
     </tbody>
 </table>
 
-<h2>Links</h2>
-<div *ngFor="let link of semanticLinks">
-    <p>
-        <b>Type: </b>
-        {{ link.linkType }}
-    </p>
-    <p>
-        <b>Source: </b>
-        <mdm-link-element [item]="link.sourceMultiFacetAwareItem"></mdm-link-element>
-    </p>
-    <p>
-        <b>Target: </b>
-        <mdm-link-element [item]="link.targetMultiFacetAwareItem"></mdm-link-element>
-    </p>
-    <p>
-        <b>Confirmed: </b>
-        {{ !link.unconfirmed }}
-    </p>
+
 </div>
+-->
