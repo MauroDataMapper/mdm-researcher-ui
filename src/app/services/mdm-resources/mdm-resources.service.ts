@@ -20,7 +20,8 @@ import {  MdmSecurityResource,
           MdmSessionResource, 
           MdmCatalogueItemResource,
           MdmDataModelResource,
-          MdmDataElementResource
+          MdmDataElementResource,
+          MdmProfileResource
  } from '@maurodatamapper/mdm-resources';
 import { MdmRestHandlerService } from './mdm-rest-handler.service';
 
@@ -34,6 +35,7 @@ export class MdmResourcesService {
   catalogueItem = new MdmCatalogueItemResource(this.resourcesConfig, this.restHandler);
   dataModel = new MdmDataModelResource(this.resourcesConfig, this.restHandler);
   dataElement = new MdmDataElementResource(this.resourcesConfig, this.restHandler);
+  profileResource = new MdmProfileResource(this.resourcesConfig, this.restHandler);
 
   constructor(
     private resourcesConfig: MdmResourcesConfiguration, 
