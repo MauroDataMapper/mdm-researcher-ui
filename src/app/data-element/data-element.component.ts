@@ -48,13 +48,10 @@ export class DataElementComponent implements OnInit {
           });
         
           //Get all dynamic profile providers
-          this.resourcesService.profileResource.providerDynamic()
+          this.resourcesService.profileResource.usedProfiles("dataElements", this.dataElement.id)
           .subscribe((resp) => {
             resp.body.forEach((provider) => {
-              //if dynamic profile provider applies to DataElement then keep it
-              if (provider.domains.includes("DataElement")) {
                 this.profileProviders.push(provider);
-              }
             });
 
             //For each dynamic profile provider that applies to DataModel, list the profile sections in
