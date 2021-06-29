@@ -26,6 +26,7 @@ import { NotFoundComponent } from '@mdm/error/not-found/not-found.component';
 import { SearchComponent } from '@mdm/search/search.component';
 import { DataModelComponent } from '@mdm/data-model/data-model.component';
 import { DataElementComponent } from '@mdm/data-element/data-element.component';
+import { WishlistComponent } from '@mdm/wishlist/wishlist.component';
 
 export const states: Ng2StateDeclaration[] = [
   {
@@ -55,6 +56,11 @@ export const states: Ng2StateDeclaration[] = [
     name: 'app.container.search',
     url: '/search',
     component: SearchComponent
+  },
+  {
+    name: 'app.container.wishlist',
+    url: '/wishlist',
+    component: WishlistComponent
   },
   {
     name: 'app.container.dataModel',

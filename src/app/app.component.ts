@@ -68,6 +68,11 @@ export class AppComponent implements OnInit, OnDestroy {
           uiSref: 'app.container.search',
           icon: 'fa-search'
         },
+        {
+          label: 'Wishlist',
+          uiSref: 'app.container.wishlist',
+          icon: 'fa-plus-square-o'
+        },
       ]
     }
   ];

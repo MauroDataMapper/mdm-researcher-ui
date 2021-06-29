@@ -1,3 +1,11 @@
+<div class="row mb-3" *ngIf="dataLoaded | async">
+    <div class="col-12">
+        <div class="text-right">
+            <mdm-add-to-wishlist-button [item]="catalogueItem"></mdm-add-to-wishlist-button>
+        </div>
+    </div>
+</div>
+
 <table class="table" *ngIf="dataLoaded | async">
     <thead>
         <tr>
