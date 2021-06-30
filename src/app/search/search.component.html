@@ -4,7 +4,7 @@
     </div>
     <div class="col-4">
         <mat-select (selectionChange)="search(true)" multiple placeholder="Classifications" class="form-control" [(ngModel)]="formData.classifiers">
-            <mat-option *ngFor="let classification of this.allClassifiers" [value]="classification">
+            <mat-option *ngFor="let classification of allClassifiers" [value]="classification">
                 {{classification.label}}</mat-option>
         </mat-select>
     </div>
