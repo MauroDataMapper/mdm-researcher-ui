@@ -1,0 +1,19 @@
+<h2>Semantically linked items</h2>
+<div *ngFor="let link of semanticLinks">
+    <p>
+        <b>Type: </b>
+        {{ link.linkType }}
+    </p>
+    <p>
+        <b>Source: </b>
+        <mdm-link-element [item]="link.sourceMultiFacetAwareItem"></mdm-link-element>
+    </p>
+    <p>
+        <b>Target: </b>
+        <mdm-link-element [item]="link.targetMultiFacetAwareItem"></mdm-link-element>
+    </p>
+    <p>
+        <b>Confirmed: </b>
+        {{ !link.unconfirmed }}
+    </p>
+</div> 

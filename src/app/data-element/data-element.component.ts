@@ -13,7 +13,6 @@ export class DataElementComponent implements OnInit {
   dataModelId: string;
   dataClassId: string;
   id: string;
-  semanticLinks: any[] = [];
   dataLoaded: Promise<boolean>;
 
   constructor(
@@ -39,12 +38,6 @@ export class DataElementComponent implements OnInit {
       .subscribe((result: DataElementDetailResponse) => {
         this.dataElement = result.body;
 
-        this.resourcesService.catalogueItem
-          .listSemanticLinks("dataElements", this.dataElement.id)
-          .subscribe((resp) => {
-            this.semanticLinks = resp.body.items;
-          });
-        
         this.dataLoaded = Promise.resolve(true);
       });
   }

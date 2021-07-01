@@ -29,26 +29,8 @@
             </div>
         </div>        
 
-        <h2>Links</h2>
-        <div *ngFor="let link of semanticLinks">
-            <p>
-                <b>Type: </b>
-                {{ link.linkType }}
-            </p>
-            <p>
-                <b>Source: </b>
-                <mdm-link-element [item]="link.sourceMultiFacetAwareItem"></mdm-link-element>
-            </p>
-            <p>
-                <b>Target: </b>
-                <mdm-link-element [item]="link.targetMultiFacetAwareItem"></mdm-link-element>
-            </p>
-            <p>
-                <b>Confirmed: </b>
-                {{ !link.unconfirmed }}
-            </p>
-        </div>   
-        
+  
+        <mdm-semantically-linked-items [item]="dataElement" domainType="dataElements"></mdm-semantically-linked-items>
         <mdm-item-profile [item]="dataElement" domainType="dataElements"></mdm-item-profile> 
     </div>
 </div>
