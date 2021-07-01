@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit {
   searchCount: number;
   searchResults: any[];
   neverSearched: boolean;
+  allClassifiers: any[] = [];
 
   @ViewChild('searchInputControl', { static: true })
   searchInputControl: ElementRef;
@@ -25,7 +26,7 @@ export class SearchComponent implements OnInit {
 
   //TODO use when adding filtering
   formData: any = {
-    showSearchResult: false
+    showSearchResult: true,
     //labelOnly: false,
     //exactMatch: false,
     //selectedDomainTypes: {
@@ -35,7 +36,7 @@ export class SearchComponent implements OnInit {
     //  DataType: false,
     //  EnumerationValue: false
     //},
-    //classifiers: [],
+    classifiers: []
 
     //lastDateUpdatedFrom: null,
     //lastDateUpdatedTo: null,
@@ -49,32 +50,41 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.neverSearched = true;
 
-    fromEvent(this.searchInputControl.nativeElement, 'keyup').pipe(map((event: any) => {
-      return event.target.value;
-    }),
-      filter((res: any) => res.length >= 0),
-      debounceTime(500),
-      distinctUntilChanged()
-    ).subscribe((text: string) => {
-      if (text.length === 0) {
-        this.formData.showSearchResult = false;
-        this.searchResults = [];
-        this.isLoading = false;
-      } else {
-        this.formData.showSearchResult = true;
-        this.fetch(10, 0).subscribe(res => {
-          this.searchResults = res.body.items;
+    this.resources.classifierResource.list()
+    .subscribe((resp) => {
+      resp.body.items.forEach((classifier) => {
+        this.allClassifiers.push(classifier);
+      });
+
+
+      fromEvent(this.searchInputControl.nativeElement, 'keyup').pipe(map((event: any) => {
+        return event.target.value;
+      }),
+        filter((res: any) => res.length >= 0),
+        debounceTime(500),
+        distinctUntilChanged()
+      ).subscribe((text: string) => {
+        if (text.length === 0) {
+          this.formData.showSearchResult = false;
+          this.searchResults = [];
           this.isLoading = false;
-          this.neverSearched = false;
+        } else {
+          this.formData.showSearchResult = true;
+          this.fetch(10, 0).subscribe(res => {
+            this.searchResults = res.body.items;
+            this.isLoading = false;
+            this.neverSearched = false;
   
-          this.searchCount = res.body.count > 0 ? res.body.count : -1;
-        }, () => {
-          this.isLoading = false;
+            this.searchCount = res.body.count > 0 ? res.body.count : -1;
+          }, () => {
+            this.isLoading = false;
+          }
+          );
         }
-        );
-      }
+      });
     });
   }    
+  
 
   getServerData($event) {
     this.fetch($event.pageSize, $event.pageIndex).subscribe(res => {
@@ -121,15 +131,15 @@ export class SearchComponent implements OnInit {
       }
     }*/
 
-    /*const classifiersNames = [];
+    const classifiersNames = [];
     this.formData.classifiers.forEach(classifier => {
       classifiersNames.push(classifier.label);
-    });*/
+    });
 
     return this.resources.catalogueItem.search(
       {
         classifierFilter: null,
-        classifiers: [],
+        classifiers: classifiersNames,
         createdAfter: null,
         createdBefore: null,
         dataModelTypes: null,
@@ -142,4 +152,22 @@ export class SearchComponent implements OnInit {
         searchTerm: this.searchTerm
       });
   }  
+
+  search(resetPageIndex?: boolean) {
+    if (this.searchTerm !== undefined) {
+      if (this.searchTerm.trim().length !== 0) {
+        if (resetPageIndex) {
+          this.pageIndex = 0;
+        }
+        this.fetch(10, this.pageIndex).subscribe(res => {
+          this.isLoading = false;
+          this.searchResults = res.body.items;
+          this.searchCount = res.body.count > 0 ? res.body.count : -1;
+        }, () => {
+          this.isLoading = false;
+        }
+        );
+      }
+    }
+  }
 }
