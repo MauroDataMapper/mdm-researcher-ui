@@ -1,10 +1,13 @@
 <div class="card mt-3" *ngIf="dataLoaded | async">
     <div class="card-header">
-        <span>{{ this.dataElement.label }}</span>
-        <span class="ml-4 badge badge-pill badge-info">{{this.dataElement.domainType}}</span>
+        <span>{{ dataElement.label }}</span>
+        <span class="ml-4 badge badge-pill badge-info">{{dataElement.domainType}}</span>
     </div>
     <div class="card-body">
-        <p class="card-text">{{this.dataElement.description}}</p>
+        <ul *ngFor="let classifier of dataElement.classifiers">
+            <li>{{ classifier.label }}</li>
+        </ul>
+        <p class="card-text">{{dataElement.description}}</p>
 
         <div class="row">
             <div class="col-4">

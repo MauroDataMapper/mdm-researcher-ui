@@ -8,13 +8,16 @@
 
 <div class="card mt-3" *ngIf="dataLoaded | async">
     <div class="card-header">
-        <span>{{ this.dataModel.label }}</span>
-        <span class="ml-4 badge badge-pill badge-info">{{this.dataModel.domainType}}</span>
+        <span>{{ dataModel.label }}</span>
+        <span class="ml-4 badge badge-pill badge-info">{{ dataModel.domainType }}</span>
     </div>
     <div class="card-body">
-        <p><strong>Author</strong>: {{ this.dataModel.author }}</p>
-        <p *ngIf="this.dataModel.aliases"><strong>Aliases</strong>: {{ this.dataModel.aliases }}</p>
-        <p class="card-text">{{this.dataModel.description}}</p>
+        <p><strong>Author</strong>: {{ dataModel.author }}</p>
+        <p *ngIf="dataModel.aliases"><strong>Aliases</strong>: {{ dataModel.aliases }}</p>
+        <ul *ngFor="let classifier of dataModel.classifiers">
+            <li>{{ classifier.label }}</li>
+        </ul>
+        <p class="card-text">{{ dataModel.description }}</p>
 
         <h2>Links</h2>
         <div *ngFor="let link of semanticLinks">
