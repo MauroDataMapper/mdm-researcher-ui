@@ -39,33 +39,8 @@
             </p>
         </div>   
         
-        <div *ngFor="let provider of profileProviders">
-          <h3>{{ provider.displayName }}</h3>
-          <div *ngFor="let section of profileSections[provider.namespace + '|' + provider.name]">
-            <div>
-                
-            </div>
-            <h3>{{ section.sectionName }}</h3>
-            <p>{{ section.sectionDescription }}</p>
-
-            <table *ngIf="section.fields.length > 0" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Current Value</th>
-                    </tr>    
-                 </thead> 
-                 <tbody>
-                    <tr *ngFor="let field of section.fields">
-                        <td>{{ field.fieldName }}</td>
-                        <td>{{ field.description }}</td>
-                        <td>{{ field.currentValue }}</td>
-                    </tr>
-                 </tbody>  
-            </table>            
-          </div>
-        </div>  
+        <mdm-item-profile [item]="catalogueItem" domainType="dataModels"></mdm-item-profile>
+         
     </div>
 </div>
 

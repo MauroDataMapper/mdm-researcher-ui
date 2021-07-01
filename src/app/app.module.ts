@@ -40,6 +40,7 @@ import { DataModelComponent } from './data-model/data-model.component';
 import { DataElementComponent } from './data-element/data-element.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component'; 
+import { ProfileComponent } from './shared/profile/profile.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/
     DataModelComponent,
     DataElementComponent,
     WishlistComponent,
-    AddToWishlistButtonComponent
+    AddToWishlistButtonComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -14,8 +14,6 @@ export class DataElementComponent implements OnInit {
   dataClassId: string;
   id: string;
   semanticLinks: any[] = [];
-  profileProviders: any[] = [];
-  profileSections: any[] = [];  
   dataLoaded: Promise<boolean>;
 
   constructor(
@@ -42,29 +40,11 @@ export class DataElementComponent implements OnInit {
         this.dataElement = result.body;
 
         this.resourcesService.catalogueItem
-          .listSemanticLinks(this.dataElement.domainType, this.dataElement.id)
+          .listSemanticLinks("dataElements", this.dataElement.id)
           .subscribe((resp) => {
             this.semanticLinks = resp.body.items;
           });
         
-          //Get all dynamic profile providers
-          this.resourcesService.profileResource.usedProfiles("dataElements", this.dataElement.id)
-          .subscribe((resp) => {
-            resp.body.forEach((provider) => {
-                this.profileProviders.push(provider);
-            });
-
-            //For each dynamic profile provider that applies to DataModel, list the profile sections in
-            //this.profileSections, indexed by [provider.namespace | provider.name]
-            this.profileProviders.forEach((provider) => {
-              this.resourcesService.profileResource
-              .profile("dataElements", this.dataElement.id, provider.namespace, provider.name)
-              .subscribe((resp) => {
-                this.profileSections[provider.namespace + '|' + provider.name] = resp.body.sections;
-              });
-            });
-          });
-
         this.dataLoaded = Promise.resolve(true);
       });
   }
