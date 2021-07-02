@@ -1,0 +1,20 @@
+<div class="card mt-3 mb-3 border-info" *ngIf="dataLoaded | async">
+    <div class="card-header bg-info">
+        <span *ngIf="direction==='target'">{{linkType}} {{ dataModel.label }}</span>
+        <span *ngIf="direction==='source'">{{ dataModel.label }} {{linkType}} </span>
+        <span class="ms-4 badge rounded-pill bg-warning">{{ dataModel.domainType }}</span>
+        <a class="ms-4" data-bs-toggle="collapse" attr.data-bs-target="#z{{dataModel.id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="bi bi-arrows-expand"></i></a>
+    </div>
+    <div class="card-body collapse" id="z{{dataModel.id}}">
+        <p><strong>Author</strong>: {{ dataModel.author }}</p>
+        <p *ngIf="dataModel.aliases"><strong>Aliases</strong>: {{ dataModel.aliases }}</p>
+        <ul *ngFor="let classifier of dataModel.classifiers">
+            <li>{{ classifier.label }}</li>
+        </ul>
+        <p class="card-text">{{ dataModel.description }}</p>
+
+        <mdm-semantically-linked-items [item]="catalogueItem" domainType="dataModels" show="sources"></mdm-semantically-linked-items>
+        <mdm-item-profile [item]="catalogueItem" domainType="dataModels"></mdm-item-profile>
+         
+    </div>
+</div>

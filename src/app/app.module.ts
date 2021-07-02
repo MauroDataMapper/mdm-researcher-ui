@@ -42,6 +42,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component'; 
 import { ProfileComponent } from './shared/profile/profile.component';
 import { SemanticallyLinkedComponent } from './shared/semantically-linked/semantically-linked.component';
+import { SemanticallyLinkedDataModelComponent } from './shared/semantically-linked-data-model/semantically-linked-data-model.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { SemanticallyLinkedComponent } from './shared/semantically-linked/semant
     WishlistComponent,
     AddToWishlistButtonComponent,
     ProfileComponent,
-    SemanticallyLinkedComponent
+    SemanticallyLinkedComponent,
+    SemanticallyLinkedDataModelComponent
   ],
   imports: [
     BrowserModule,
