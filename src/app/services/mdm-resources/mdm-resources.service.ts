@@ -20,6 +20,7 @@ import {  MdmSecurityResource,
           MdmSessionResource, 
           MdmCatalogueItemResource,
           MdmDataModelResource,
+          MdmDataClassResource,
           MdmDataElementResource,
           MdmProfileResource,
           MdmClassifierResource
@@ -35,6 +36,7 @@ export class MdmResourcesService {
   session = new MdmSessionResource(this.resourcesConfig, this.restHandler);
   catalogueItem = new MdmCatalogueItemResource(this.resourcesConfig, this.restHandler);
   dataModel = new MdmDataModelResource(this.resourcesConfig, this.restHandler);
+  dataClass = new MdmDataClassResource(this.resourcesConfig, this.restHandler);
   dataElement = new MdmDataElementResource(this.resourcesConfig, this.restHandler);
   profileResource = new MdmProfileResource(this.resourcesConfig, this.restHandler);
   classifierResource = new MdmClassifierResource(this.resourcesConfig, this.restHandler);

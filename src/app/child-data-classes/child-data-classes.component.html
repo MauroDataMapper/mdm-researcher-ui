@@ -1,0 +1,16 @@
+<table *ngIf="childDataClasses.length > 0" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Data Class</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let childDataClass of childDataClasses">
+            <td>
+                <mdm-child-data-class-link-element [item]="childDataClass"></mdm-child-data-class-link-element>
+            </td>
+            <td>{{ childDataClass.description }}</td>
+        </tr>
+    </tbody>
+</table>

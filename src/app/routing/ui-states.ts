@@ -25,6 +25,8 @@ import { ServerErrorComponent } from '@mdm/error/server-error/server-error.compo
 import { NotFoundComponent } from '@mdm/error/not-found/not-found.component';
 import { SearchComponent } from '@mdm/search/search.component';
 import { DataModelComponent } from '@mdm/data-model/data-model.component';
+import { DataClassComponent } from '@mdm/data-class/data-class.component';
+import { ChildDataClassComponent } from '@mdm/child-data-class/child-data-class.component';
 import { DataElementComponent } from '@mdm/data-element/data-element.component';
 import { WishlistComponent } from '@mdm/wishlist/wishlist.component';
 
@@ -67,6 +69,16 @@ export const states: Ng2StateDeclaration[] = [
     url: '/dataModel/:id',
     component: DataModelComponent
   },
+  {
+    name: 'app.container.dataClass',
+    url: '/dataModel/:dataModelId/dataClass/:id',
+    component: DataClassComponent
+  },  
+  {
+    name: 'app.container.childDataClass',
+    url: '/dataModel/:dataModelId/dataClass/:parentDataClassId/dataClass/:id',
+    component: ChildDataClassComponent
+  },    
   {
     name: 'app.container.dataElement',
     url: '/dataElement/:dataModelId/:dataClassId/:id',
