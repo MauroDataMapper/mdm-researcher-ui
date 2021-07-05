@@ -81,7 +81,8 @@ export const states: Ng2StateDeclaration[] = [
   },    
   {
     name: 'app.container.dataElement',
-    url: '/dataElement/:dataModelId/:dataClassId/:id',
+    //url: '/dataElement/:dataModelId/:dataClassId/:id',
+    url: '/dataModel/:dataModelId/dataClass/:dataClassId/dataElement/:id',
     component: DataElementComponent
   },
   {

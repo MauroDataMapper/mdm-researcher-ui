@@ -22,25 +22,58 @@ export class LinkElementComponent implements OnInit {
         break;
       }
       case "DataClass": {
-        this.uiParams = { dataModelId: this.item.model, id: this.item.id };
-        this.uiRef = "app.container.dataClass";
+        /**
+         * If there are breadcrumbs that look like
+         * breadcrumb[0] is a DataModel
+         * breadcrumb[1] is a DataClass
+         * then this is a child of the DataClass in breadcrumb[1]
+         * Else it's a DataClass that belongs directly to the DataModel
+         */
+        if (this.isBreadcrumbOf(this.item.breadcrumbs, 0, 'DataModel')) {
+          if (this.isBreadcrumbOf(this.item.breadcrumbs, 1, 'DataClass')) {
+            this.uiParams = { dataModelId: this.item.model, parentDataClassId: this.item.breadcrumbs[1].id, id: this.item.id };
+            this.uiRef = "app.container.childDataClass";
+          } else {
+            this.uiParams = { dataModelId: this.item.model, id: this.item.id };
+            this.uiRef = "app.container.dataClass";
+          }
+        }
         break;
       }
       case "DataElement": {
-        let dataModel = this.item.breadcrumbs.filter(this.getDataModelBreadcrumb);
-        let dataClass = this.item.breadcrumbs.filter(this.getDataClassBreadcrumb);
-
-        this.uiParams = { dataModelId: dataModel[0].id, dataClassId: dataClass[0].id, id: this.item.id };
-        this.uiRef = "app.container.dataElement";
+        /**
+         * If there are breadcrumbs that look like
+         * breadcrumb[0] is a DataModel
+         * breadcrumb[1] is a DataClass
+         * breadcrumb[2] is a DataClass
+         * then this is a DataElement of the DataClass in breadcrumb[2]
+         * Else it's in the DataClass of breadcrumb[1]
+         */
+         if (this.isBreadcrumbOf(this.item.breadcrumbs, 0, 'DataModel')) {
+          if (this.isBreadcrumbOf(this.item.breadcrumbs, 1, 'DataClass')) {
+            if (this.isBreadcrumbOf(this.item.breadcrumbs, 2, 'DataClass')) {
+              this.uiParams = { dataModelId: this.item.model, dataClassId: this.item.breadcrumbs[2].id, id: this.item.id };
+              this.uiRef = "app.container.dataElement";
+            } else {
+              this.uiParams = { dataModelId: this.item.model, dataClassId: this.item.breadcrumbs[1].id, id: this.item.id };
+              this.uiRef = "app.container.dataElement";
+            }
+          }
+        }
         break;
       }
     }
   }
 
-  getDataModelBreadcrumb(element): boolean {
+  /*getDataModelBreadcrumb(element): boolean {
     return element.domainType === "DataModel";
   }
   getDataClassBreadcrumb(element): boolean {
     return element.domainType === "DataClass";
+  }*/
+
+  isBreadcrumbOf(breadcrumbs, position, of): boolean {
+    return breadcrumbs[position] !== undefined 
+    && breadcrumbs[position].domainType == of;
   }
 }

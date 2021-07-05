@@ -36,7 +36,6 @@ import { FormsModule } from '@angular/forms';
 import { CardDisplayComponent } from './card-display/card-display.component';
 import { SearchPaginatorComponent } from './shared/search-paginator/search-paginator';
 import { LinkElementComponent } from './shared/utility/link-element/link-element.component';
-import { ChildDataClassLinkElementComponent } from './shared/utility/child-data-class-link-element/child-data-class-link-element.component';
 import { DataModelComponent } from './data-model/data-model.component';
 import { DataClassComponent } from './data-class/data-class.component';
 import { ChildDataClassComponent } from './child-data-class/child-data-class.component';
@@ -60,7 +59,6 @@ import { DownloadWishlistComponent } from './wishlist/download-wishlist/download
     CardDisplayComponent,
     SearchPaginatorComponent,
     LinkElementComponent,
-    ChildDataClassLinkElementComponent,
     DataModelComponent,
     DataClassComponent,
     ChildDataClassComponent,
