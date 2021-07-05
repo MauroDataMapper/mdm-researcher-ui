@@ -1,15 +1,8 @@
-<div class="row mb-3" *ngIf="dataLoaded | async">
-    <div class="col-12">
-        <div class="text-right">
-            <mdm-add-to-wishlist-button [item]="catalogueItem"></mdm-add-to-wishlist-button>
-        </div>
-    </div>
-</div>
-
 <div class="card mt-3" *ngIf="dataLoaded | async">
     <div class="card-header">
         <span>{{ dataModel.label }}</span>
-        <span class="ml-4 badge badge-pill badge-info">{{ dataModel.domainType }}</span>
+        <span class="ms-4 badge rounded-pill bg-info">{{ dataModel.domainType }}</span>
+        <mdm-add-to-wishlist-button class="float-end" [item]="catalogueItem"></mdm-add-to-wishlist-button>
     </div>
     <div class="card-body">
         <p><strong>Author</strong>: {{ dataModel.author }}</p>
@@ -19,78 +12,17 @@
         </ul>
         <p class="card-text">{{ dataModel.description }}</p>
 
-        <h2>Links</h2>
-        <div *ngFor="let link of semanticLinks">
-            <p>
-                <b>Type: </b>
-                {{ link.linkType }}
-            </p>
-            <p>
-                <b>Source: </b>
-                <mdm-link-element [item]="link.sourceMultiFacetAwareItem"></mdm-link-element>
-            </p>
-            <p>
-                <b>Target: </b>
-                <mdm-link-element [item]="link.targetMultiFacetAwareItem"></mdm-link-element>
-            </p>
-            <p>
-                <b>Confirmed: </b>
-                {{ !link.unconfirmed }}
-            </p>
-        </div>   
-        
-        <div *ngFor="let provider of profileProviders">
-          <h3>{{ provider.displayName }}</h3>
-          <div *ngFor="let section of profileSections[provider.namespace + '|' + provider.name]">
-            <div>
-                
-            </div>
-            <h3>{{ section.sectionName }}</h3>
-            <p>{{ section.sectionDescription }}</p>
+        <mdm-semantically-linked-items [item]="catalogueItem" domainType="dataModels" show="sources"></mdm-semantically-linked-items>
+        <mdm-item-profile [item]="catalogueItem" domainType="dataModels"></mdm-item-profile>
 
-            <table *ngIf="section.fields.length > 0" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Current Value</th>
-                    </tr>    
-                 </thead> 
-                 <tbody>
-                    <tr *ngFor="let field of section.fields">
-                        <td>{{ field.fieldName }}</td>
-                        <td>{{ field.description }}</td>
-                        <td>{{ field.currentValue }}</td>
-                    </tr>
-                 </tbody>  
-            </table>            
-          </div>
-        </div>  
+         
+    </div>
+
+   
+</div>
+
+<div class="row mb-3" *ngIf="dataLoaded | async">
+    <div class="col-12">
+        <mdm-semantically-linked-items [item]="catalogueItem" domainType="dataModels" show="targets"></mdm-semantically-linked-items>
     </div>
 </div>
-
-<!--
-<table class="table" *ngIf="dataLoaded | async">
-    <thead>
-        <tr>
-        <th scope="row">Aliases</th>
-        <th scope="row">Description</th>
-        <th scope="row">Author</th>
-        <th scope="row">Finalised?</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-        <td *ngIf="this.dataModel.aliases; else noAliasBlock">{{ this.dataModel.aliases }}</td>
-        <ng-template #noAliasBlock><td>No aliases defined.</td></ng-template>
-
-        <td>{{ this.dataModel.description }}</td>
-        <td>{{ this.dataModel.author }}</td>
-        <td>{{ this.dataModel.finalised }}</td>
-        </tr>
-    </tbody>
-</table>
-
-
-</div>
--->

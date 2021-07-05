@@ -1,7 +1,7 @@
 <div class="card mt-3" *ngIf="dataLoaded | async">
     <div class="card-header">
         <span>{{ dataElement.label }}</span>
-        <span class="ml-4 badge badge-pill badge-info">{{dataElement.domainType}}</span>
+        <span class="ms-4 badge rounded-pill bg-info">{{dataElement.domainType}}</span>
     </div>
     <div class="card-body">
         <ul *ngFor="let classifier of dataElement.classifiers">
@@ -29,53 +29,9 @@
             </div>
         </div>        
 
-        <h2>Links</h2>
-        <div *ngFor="let link of semanticLinks">
-            <p>
-                <b>Type: </b>
-                {{ link.linkType }}
-            </p>
-            <p>
-                <b>Source: </b>
-                <mdm-link-element [item]="link.sourceMultiFacetAwareItem"></mdm-link-element>
-            </p>
-            <p>
-                <b>Target: </b>
-                <mdm-link-element [item]="link.targetMultiFacetAwareItem"></mdm-link-element>
-            </p>
-            <p>
-                <b>Confirmed: </b>
-                {{ !link.unconfirmed }}
-            </p>
-        </div>   
-        
-        <div *ngFor="let provider of profileProviders">
-          <h3>{{ provider.displayName }}</h3>
-          <div *ngFor="let section of profileSections[provider.namespace + '|' + provider.name]">
-            <div>
-                
-            </div>
-            <h3>{{ section.sectionName }}</h3>
-            <p>{{ section.sectionDescription }}</p>
-
-            <table *ngIf="section.fields.length > 0" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Current Value</th>
-                    </tr>    
-                 </thead> 
-                 <tbody>
-                    <tr *ngFor="let field of section.fields">
-                        <td>{{ field.fieldName }}</td>
-                        <td>{{ field.description }}</td>
-                        <td>{{ field.currentValue }}</td>
-                    </tr>
-                 </tbody>  
-            </table>            
-          </div>
-        </div>  
+  
+        <mdm-semantically-linked-items [item]="dataElement" domainType="dataElements"></mdm-semantically-linked-items>
+        <mdm-item-profile [item]="dataElement" domainType="dataElements"></mdm-item-profile> 
     </div>
 </div>
 
