@@ -39,7 +39,10 @@ import { LinkElementComponent } from './shared/utility/link-element/link-element
 import { DataModelComponent } from './data-model/data-model.component';
 import { DataElementComponent } from './data-element/data-element.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
-import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component';
+import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component'; 
+import { ProfileComponent } from './shared/profile/profile.component';
+import { SemanticallyLinkedComponent } from './shared/semantically-linked/semantically-linked.component';
+import { SemanticallyLinkedDataModelComponent } from './shared/semantically-linked-data-model/semantically-linked-data-model.component';
 import { DownloadWishlistComponent } from './wishlist/download-wishlist/download-wishlist.component'; 
 
 
@@ -56,6 +59,9 @@ import { DownloadWishlistComponent } from './wishlist/download-wishlist/download
     DataElementComponent,
     WishlistComponent,
     AddToWishlistButtonComponent,
+    ProfileComponent,
+    SemanticallyLinkedComponent,
+    SemanticallyLinkedDataModelComponent,
     DownloadWishlistComponent
   ],
   imports: [

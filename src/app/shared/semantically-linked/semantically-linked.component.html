@@ -1,0 +1,7 @@
+<div *ngFor="let link of semanticLinksForWhichThisIsTarget">
+    <mdm-semantically-linked-data-model  [dataModelId]="link.sourceMultiFacetAwareItem.id" [linkType]="link.linkType" direction="target"></mdm-semantically-linked-data-model>
+</div> 
+
+<div *ngFor="let link of semanticLinksForWhichThisIsSource">
+    <mdm-semantically-linked-data-model  [dataModelId]="link.targetMultiFacetAwareItem.id" [linkType]="link.linkType" direction="source"></mdm-semantically-linked-data-model>
+</div> 
