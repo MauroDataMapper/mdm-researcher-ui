@@ -26,10 +26,10 @@ export class DownloadWishlistComponent implements OnInit {
     if (this.localStorage.containsKey('wishlist')) {
       this.localWishlist = JSON.parse(this.localStorage.getItem('wishlist'));
     }
-    this.fetchData(); 
   }
 
   exportToSpreadsheet(): void {
+    this.fetchData(); 
 
     // Create a new workbook
     let workbook = new Workbook();
@@ -53,14 +53,11 @@ export class DownloadWishlistComponent implements OnInit {
       // Add 1 row for each section of each profile
       for (let _provider of wishListDownloadElement.profileProviders) {
         var provider : Provider = _provider;
-        console.log(`Providers loop`);
         for (let _section of wishListDownloadElement.profileSections[`${provider.namespace}|${provider.name}`]) {
           var section: Section = _section;
-          console.log(`Sections loop`);
           if (section.fields.length > 0) {
             for (let _field of section.fields) {
               var field: Field = _field;
-              console.log(`Fields loop`);
               worksheet.addRow({
                 variableName: field.fieldName,
                 description: field.description,
@@ -74,7 +71,7 @@ export class DownloadWishlistComponent implements OnInit {
         }
       }
     }
-    
+
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       var today = new Date();
@@ -93,14 +90,8 @@ export class DownloadWishlistComponent implements OnInit {
       this.resourcesService.dataModel
       .get(this.localWishlist[ii].id)
       .subscribe(async (result: DataModelDetailResponse) => {
-        wishlistElement.catalogueItem = result.body;
+          wishlistElement.catalogueItem = result.body;
 
-        this.resourcesService.catalogueItem
-          .listSemanticLinks(wishlistElement.catalogueItem.domainType, wishlistElement.catalogueItem.id)
-          .subscribe((resp) => {
-            wishlistElement.semanticLinks = resp.body.items;
-          });
-        
           //Get all dynamic profile providers
           this.resourcesService.profileResource.usedProfiles(ModelDomainType.DataModels, wishlistElement.catalogueItem.id)
           .subscribe((resp) => {
@@ -108,18 +99,18 @@ export class DownloadWishlistComponent implements OnInit {
               wishlistElement.profileProviders.push(provider);
             });
 
-            //For each dynamic profile provider that applies to DataModel, list the profile sections in
-            //indexed by [provider.namespace | provider.name]
-            wishlistElement.profileProviders.forEach((provider) => {
-              this.resourcesService.profileResource
-              .profile(ModelDomainType.DataModels, wishlistElement.catalogueItem.id, provider.namespace, provider.name)
-              .subscribe((resp) => {
-                wishlistElement.profileSections[provider.namespace + '|' + provider.name] = resp.body.sections;
-              });
+          //For each dynamic profile provider that applies to DataModel, list the profile sections in
+          //indexed by [provider.namespace | provider.name]
+          wishlistElement.profileProviders.forEach((provider) => {
+            this.resourcesService.profileResource
+            .profile(ModelDomainType.DataModels, wishlistElement.catalogueItem.id, provider.namespace, provider.name)
+            .subscribe((resp) => {
+              wishlistElement.profileSections[provider.namespace + '|' + provider.name] = resp.body.sections;
             });
-            
-            this.wishlistDownloads.push(wishlistElement);
           });
+
+          this.wishlistDownloads.push(wishlistElement);
+        });
       });
     }
   }
