@@ -10,6 +10,7 @@ import { catalogueItem } from '@shared/shared-classes';
 })
 export class DataClassComponent implements OnInit {
   @Input() dataModelId: Uuid;
+  @Input() parentDataClassId: Uuid;
   @Input() id: Uuid;
   @Input() page: boolean;
   @Input() linkType: string;
@@ -30,7 +31,26 @@ export class DataClassComponent implements OnInit {
   }
 
   doInit(): void {
-    this.resourcesService.dataClass
+
+    if (this.parentDataClassId) {
+      this.resourcesService.dataClass
+      .getChildDataClass(this.dataModelId, this.parentDataClassId, this.id)
+      .subscribe(async (result: DataClassDetailResponse) => {
+        this.dataClass = result.body;
+        
+        this.catalogueItem = new catalogueItem();
+        this.catalogueItem.id = this.dataClass.id;
+        this.catalogueItem.domainType = 'DataClass';
+        this.catalogueItem.label = this.dataClass.label;
+        this.catalogueItem.model = this.dataClass.model;
+        this.catalogueItem.breadcrumbs = this.dataClass.breadcrumbs;
+        this.catalogueItem.description = this.dataClass.description;
+        
+        this.dataLoaded = Promise.resolve(true);
+
+      });
+    } else {
+      this.resourcesService.dataClass
       .get(this.dataModelId, this.id)
       .subscribe(async (result: DataClassDetailResponse) => {
         this.dataClass = result.body;
@@ -46,6 +66,8 @@ export class DataClassComponent implements OnInit {
 
         this.dataLoaded = Promise.resolve(true);
       });
+    }
+
   }
 
 }

@@ -25,13 +25,13 @@ export class LinkElementComponent implements OnInit {
         /**
          * If there are breadcrumbs that look like
          * breadcrumb[0] is a DataModel
-         * breadcrumb[1] is a DataClass
-         * then this is a child of the DataClass in breadcrumb[1]
+         * breadcrumb[n] is a DataClass
+         * then this is a child of the DataClass in breadcrumb[n]
          * Else it's a DataClass that belongs directly to the DataModel
          */
         if (this.isBreadcrumbOf(this.item.breadcrumbs, 0, 'DataModel')) {
-          if (this.isBreadcrumbOf(this.item.breadcrumbs, 1, 'DataClass')) {
-            this.uiParams = { dataModelId: this.item.model, parentDataClassId: this.item.breadcrumbs[1].id, id: this.item.id };
+          if (this.isBreadcrumbOf(this.item.breadcrumbs, this.item.breadcrumbs.length - 1, 'DataClass')) {
+            this.uiParams = { dataModelId: this.item.model, parentDataClassId: this.item.breadcrumbs[this.item.breadcrumbs.length - 1].id, id: this.item.id };
             this.uiRef = "app.container.childDataClass";
           } else {
             this.uiParams = { dataModelId: this.item.model, id: this.item.id };
