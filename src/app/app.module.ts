@@ -43,6 +43,7 @@ import { DataClassPageComponent } from './data-class-page/data-class-page.compon
 import { ChildDataClassPageComponent } from './child-data-class-page/child-data-class-page.component';
 import { ChildDataClassesComponent } from './child-data-classes/child-data-classes.component';
 import { DataElementComponent } from './data-element/data-element.component';
+import { DataElementPageComponent } from './data-element-page/data-element-page.component';
 import { DataElementsComponent } from './data-elements/data-elements.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component'; 
@@ -67,6 +68,7 @@ import { DownloadWishlistComponent } from './wishlist/download-wishlist/download
     ChildDataClassPageComponent,
     ChildDataClassesComponent,
     DataElementComponent,
+    DataElementPageComponent,
     DataElementsComponent,
     WishlistComponent,
     AddToWishlistButtonComponent,

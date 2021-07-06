@@ -27,7 +27,7 @@ import { SearchComponent } from '@mdm/search/search.component';
 import { DataModelPageComponent } from '@mdm/data-model-page/data-model-page.component';
 import { DataClassPageComponent } from '@mdm/data-class-page/data-class-page.component';
 import { ChildDataClassPageComponent } from '@mdm/child-data-class-page/child-data-class-page.component';
-import { DataElementComponent } from '@mdm/data-element/data-element.component';
+import { DataElementPageComponent } from '@mdm/data-element-page/data-element-page.component';
 import { WishlistComponent } from '@mdm/wishlist/wishlist.component';
 
 export const states: Ng2StateDeclaration[] = [
@@ -81,9 +81,8 @@ export const states: Ng2StateDeclaration[] = [
   },    
   {
     name: 'app.container.dataElement',
-    //url: '/dataElement/:dataModelId/:dataClassId/:id',
     url: '/dataModel/:dataModelId/dataClass/:dataClassId/dataElement/:id',
-    component: DataElementComponent
+    component: DataElementPageComponent
   },
   {
     name: 'app.container.notImplemented',

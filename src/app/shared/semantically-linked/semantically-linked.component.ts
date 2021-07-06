@@ -49,4 +49,8 @@ export class SemanticallyLinkedComponent implements OnInit {
   toDataClass(domainType): boolean {
     return domainType == "DataClass";
   }  
+
+  toDataElement(domainType): boolean {
+    return domainType == "DataElement";
+  }   
 }
