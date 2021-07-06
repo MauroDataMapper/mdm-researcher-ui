@@ -13,10 +13,10 @@
         <p *ngIf="dataModel.aliases"><strong>Aliases</strong>: {{ dataModel.aliases }}</p>
         <p class="card-text">{{ dataModel.description }}</p>
 
+        <mdm-data-classes [dataModelId]="dataModel.id"></mdm-data-classes>
+
         <mdm-semantically-linked-items [item]="dataModel" domainType="dataModels" show="sources"></mdm-semantically-linked-items>
         <mdm-item-profile [item]="dataModel" domainType="dataModels"></mdm-item-profile>
-
-         
     </div>
 
    

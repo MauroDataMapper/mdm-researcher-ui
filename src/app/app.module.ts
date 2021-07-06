@@ -40,6 +40,7 @@ import { LinkElementComponent } from './shared/utility/link-element/link-element
 import { DataModelComponent } from './data-model/data-model.component';
 import { DataModelPageComponent } from './data-model-page/data-model-page.component';
 import { DataClassComponent } from './data-class/data-class.component';
+import { DataClassesComponent } from './data-classes/data-classes.component';
 import { DataClassPageComponent } from './data-class-page/data-class-page.component';
 import { ChildDataClassPageComponent } from './child-data-class-page/child-data-class-page.component';
 import { ChildDataClassesComponent } from './child-data-classes/child-data-classes.component';
@@ -66,6 +67,7 @@ import { DownloadWishlistComponent } from './wishlist/download-wishlist/download
     DataModelComponent,
     DataModelPageComponent,
     DataClassComponent,
+    DataClassesComponent,
     DataClassPageComponent,
     ChildDataClassPageComponent,
     ChildDataClassesComponent,
