@@ -1,10 +1,13 @@
-<div class="card mt-3" *ngIf="dataLoaded | async">
-    <div class="card-header">
-        <span>{{ dataModel.label }}</span>
-        <span class="ms-4 badge rounded-pill bg-info">{{ dataModel.domainType }}</span>
-        <mdm-add-to-wishlist-button class="float-end" [item]="catalogueItem"></mdm-add-to-wishlist-button>
+<div class="card mt-3 mb-3" [ngClass]="{'border-info' : direction}" *ngIf="dataLoaded | async">
+    <div class="card-header" [ngClass]="{'bg-info' : direction}">
+        <span *ngIf="direction==='target'">{{ semanticLink.linkType }} </span>
+        <span><mdm-link-element [item]="catalogueItem"></mdm-link-element></span>
+        <span *ngIf="direction==='source'"> {{semanticLink.linkType}} {{ semanticLink.sourceMultiFacetAwareItem.label }}</span>
+        <span class="ms-4 badge rounded-pill bg-warning">{{ dataModel.domainType }}</span>
+        <a *ngIf="direction" class="ms-4" data-bs-toggle="collapse" attr.data-bs-target="#z{{dataModel.id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="bi bi-arrows-expand"></i></a>
+        <mdm-add-to-wishlist-button class="float-end" [item]="CatalogueItem"></mdm-add-to-wishlist-button>
     </div>
-    <div class="card-body">
+    <div class="card-body" [ngClass]="{'collapse' : direction}" id="z{{dataModel.id}}">
         <p><strong>Author</strong>: {{ dataModel.author }}</p>
         <p *ngIf="dataModel.aliases"><strong>Aliases</strong>: {{ dataModel.aliases }}</p>
         <ul *ngFor="let classifier of dataModel.classifiers">
@@ -12,8 +15,8 @@
         </ul>
         <p class="card-text">{{ dataModel.description }}</p>
 
-        <mdm-semantically-linked-items [item]="catalogueItem" domainType="dataModels" show="sources"></mdm-semantically-linked-items>
-        <mdm-item-profile [item]="catalogueItem" domainType="dataModels"></mdm-item-profile>
+        <mdm-semantically-linked-items [item]="dataModel" domainType="dataModels" show="sources"></mdm-semantically-linked-items>
+        <mdm-item-profile [item]="dataModel" domainType="dataModels"></mdm-item-profile>
 
          
     </div>
@@ -21,8 +24,8 @@
    
 </div>
 
-<div class="row mb-3" *ngIf="dataLoaded | async">
+<div class="row mb-3" *ngIf="page && (dataLoaded | async)">
     <div class="col-12">
-        <mdm-semantically-linked-items [item]="catalogueItem" domainType="dataModels" show="targets"></mdm-semantically-linked-items>
+        <mdm-semantically-linked-items [item]="dataModel" domainType="dataModels" show="targets"></mdm-semantically-linked-items>
     </div>
 </div>

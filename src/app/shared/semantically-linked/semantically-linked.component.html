@@ -1,9 +1,9 @@
 <div *ngFor="let link of semanticLinksForWhichThisIsTarget">
-    <mdm-semantically-linked-data-model *ngIf="toDataModel(link.sourceMultiFacetAwareItem.domainType)" [dataModelId]="link.sourceMultiFacetAwareItem.id" [linkType]="link.linkType" direction="target"></mdm-semantically-linked-data-model>
+    <mdm-data-model *ngIf="toDataModel(link.sourceMultiFacetAwareItem.domainType)" [id]="link.sourceMultiFacetAwareItem.id" [semanticLink]="link" direction="target"></mdm-data-model>
     <mdm-data-class *ngIf="toDataClass(link.sourceMultiFacetAwareItem.domainType)" [dataModelId]="link.sourceMultiFacetAwareItem.breadcrumbs[0].id" [id]="link.sourceMultiFacetAwareItem.id" [semanticLink]="link" direction="target"></mdm-data-class>
 </div> 
 
 <div *ngFor="let link of semanticLinksForWhichThisIsSource">
-    <mdm-semantically-linked-data-model *ngIf="toDataModel(link.targetMultiFacetAwareItem.domainType)" [dataModelId]="link.targetMultiFacetAwareItem.id" [linkType]="link.linkType" direction="source"></mdm-semantically-linked-data-model>
+    <mdm-data-model *ngIf="toDataModel(link.targetMultiFacetAwareItem.domainType)" [id]="link.targetMultiFacetAwareItem.id" [semanticLink]="link" direction="source"></mdm-data-model>
     <mdm-data-class *ngIf="toDataClass(link.targetMultiFacetAwareItem.domainType)" [dataModelId]="link.targetMultiFacetAwareItem.breadcrumbs[0].id" [id]="link.targetMultiFacetAwareItem.id" [semanticLink]="link" direction="source"></mdm-data-class>
 </div> 

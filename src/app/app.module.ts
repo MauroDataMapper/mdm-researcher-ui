@@ -37,6 +37,7 @@ import { CardDisplayComponent } from './card-display/card-display.component';
 import { SearchPaginatorComponent } from './shared/search-paginator/search-paginator';
 import { LinkElementComponent } from './shared/utility/link-element/link-element.component';
 import { DataModelComponent } from './data-model/data-model.component';
+import { DataModelPageComponent } from './data-model-page/data-model-page.component';
 import { DataClassComponent } from './data-class/data-class.component';
 import { DataClassPageComponent } from './data-class-page/data-class-page.component';
 import { ChildDataClassPageComponent } from './child-data-class-page/child-data-class-page.component';
@@ -47,7 +48,6 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component'; 
 import { ProfileComponent } from './shared/profile/profile.component';
 import { SemanticallyLinkedComponent } from './shared/semantically-linked/semantically-linked.component';
-import { SemanticallyLinkedDataModelComponent } from './shared/semantically-linked-data-model/semantically-linked-data-model.component';
 import { DownloadWishlistComponent } from './wishlist/download-wishlist/download-wishlist.component'; 
 
 
@@ -61,6 +61,7 @@ import { DownloadWishlistComponent } from './wishlist/download-wishlist/download
     SearchPaginatorComponent,
     LinkElementComponent,
     DataModelComponent,
+    DataModelPageComponent,
     DataClassComponent,
     DataClassPageComponent,
     ChildDataClassPageComponent,
@@ -71,7 +72,6 @@ import { DownloadWishlistComponent } from './wishlist/download-wishlist/download
     AddToWishlistButtonComponent,
     ProfileComponent,
     SemanticallyLinkedComponent,
-    SemanticallyLinkedDataModelComponent,
     DownloadWishlistComponent
   ],
   imports: [

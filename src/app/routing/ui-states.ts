@@ -24,7 +24,7 @@ import { NotAuthorizedComponent } from '@mdm/error/not-authorized/not-authorized
 import { ServerErrorComponent } from '@mdm/error/server-error/server-error.component';
 import { NotFoundComponent } from '@mdm/error/not-found/not-found.component';
 import { SearchComponent } from '@mdm/search/search.component';
-import { DataModelComponent } from '@mdm/data-model/data-model.component';
+import { DataModelPageComponent } from '@mdm/data-model-page/data-model-page.component';
 import { DataClassPageComponent } from '@mdm/data-class-page/data-class-page.component';
 import { ChildDataClassPageComponent } from '@mdm/child-data-class-page/child-data-class-page.component';
 import { DataElementComponent } from '@mdm/data-element/data-element.component';
@@ -67,7 +67,7 @@ export const states: Ng2StateDeclaration[] = [
   {
     name: 'app.container.dataModel',
     url: '/dataModel/:id',
-    component: DataModelComponent
+    component: DataModelPageComponent
   },
   {
     name: 'app.container.dataClass',

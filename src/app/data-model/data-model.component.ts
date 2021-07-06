@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MdmResourcesService } from '@mdm/services/mdm-resources/mdm-resources.service';
-import { DataModelDetail, DataModelDetailResponse, CatalogueItem, ModelDomainType } from '@maurodatamapper/mdm-resources'; 
-import { UIRouterGlobals, UIRouter } from '@uirouter/core';
+import { DataModelDetail, DataModelDetailResponse, CatalogueItem, ModelDomainType, Uuid } from '@maurodatamapper/mdm-resources'; 
+import { catalogueItem } from '@shared/shared-classes';
 
 @Component({
   selector: 'mdm-data-model',
@@ -9,30 +9,36 @@ import { UIRouterGlobals, UIRouter } from '@uirouter/core';
   styleUrls: ['./data-model.component.scss']
 })
 export class DataModelComponent implements OnInit {
+
+  @Input() id: Uuid;
+  @Input() page: boolean;
+  @Input() linkType: string;
+  @Input() direction: string;  
+  @Input() semanticLink: any;
   dataModel: DataModelDetail;
-  catalogueItem: CatalogueItem;
-  dataModelId: string;
+  catalogueItem: catalogueItem;
+  CatalogueItem: CatalogueItem;
   dataLoaded: Promise<boolean>;
 
   constructor(
-    private resourcesService: MdmResourcesService,
-    private uiRouterGlobals: UIRouterGlobals,
-    private router: UIRouter
+    private resourcesService: MdmResourcesService
     ) { }
 
   ngOnInit(): void {
-    if (!this.uiRouterGlobals.params.id) {
-      this.router.stateService.go('app.container.notFound');
-      return;
-    }
-
-    this.dataModelId = this.uiRouterGlobals.params.id
 
     this.resourcesService.dataModel
-      .get(this.dataModelId)
+      .get(this.id)
       .subscribe(async (result: DataModelDetailResponse) => {
         this.dataModel = result.body;
-        this.catalogueItem = this.dataModel;
+        this.CatalogueItem = this.dataModel;
+
+        this.catalogueItem = new catalogueItem();
+        this.catalogueItem.id = this.dataModel.id;
+        this.catalogueItem.domainType = 'DataModel';
+        this.catalogueItem.label = this.dataModel.label;
+        this.catalogueItem.model = this.dataModel.model;
+        this.catalogueItem.breadcrumbs = this.dataModel.breadcrumbs;
+        this.catalogueItem.description = this.dataModel.description;
 
         this.dataLoaded = Promise.resolve(true);
       });
