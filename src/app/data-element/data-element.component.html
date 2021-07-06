@@ -8,9 +8,7 @@
 
     </div>
     <div class="card-body" [ngClass]="{'collapse' : direction}" id="z{{dataElement.id}}">
-        <ul *ngFor="let classifier of dataElement.classifiers">
-            <li>{{ classifier.label }}</li>
-        </ul>
+        <mdm-classifiers [classifiers]="dataElement.classifiers"></mdm-classifiers>
         <p class="card-text">{{dataElement.description}}</p>
 
         <!--<div class="row">

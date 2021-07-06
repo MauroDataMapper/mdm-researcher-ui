@@ -18,6 +18,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { ClassifiersComponent } from './shared/classifiers/classifiers.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { states } from './routing/ui-states';
 import { UIRouterModule } from '@uirouter/angular';
@@ -56,6 +57,7 @@ import { DownloadWishlistComponent } from './wishlist/download-wishlist/download
   declarations: [
     AppComponent,
     AppContainerComponent,
+    ClassifiersComponent,
     UiViewComponent,
     SearchComponent,
     CardDisplayComponent,

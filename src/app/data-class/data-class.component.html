@@ -7,9 +7,7 @@
         <a *ngIf="direction" class="ms-4" data-bs-toggle="collapse" attr.data-bs-target="#z{{dataClass.id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="bi bi-arrows-expand"></i></a>
     </div>
     <div class="card-body" [ngClass]="{'collapse' : direction}" id="z{{dataClass.id}}">
-        <ul *ngFor="let classifier of dataClass.classifiers">
-            <li>{{ classifier.label }}</li>
-        </ul>
+        <mdm-classifiers [classifiers]="dataClass.classifiers"></mdm-classifiers>
         <p class="card-text">{{ dataClass.description }}</p>
 
         <mdm-semantically-linked-items [item]="dataClass" domainType="dataClasses" show="sources"></mdm-semantically-linked-items>

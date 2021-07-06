@@ -8,11 +8,9 @@
         <mdm-add-to-wishlist-button class="float-end" [item]="CatalogueItem"></mdm-add-to-wishlist-button>
     </div>
     <div class="card-body" [ngClass]="{'collapse' : direction}" id="z{{dataModel.id}}">
+        <mdm-classifiers [classifiers]="dataModel.classifiers"></mdm-classifiers>
         <p><strong>Author</strong>: {{ dataModel.author }}</p>
         <p *ngIf="dataModel.aliases"><strong>Aliases</strong>: {{ dataModel.aliases }}</p>
-        <ul *ngFor="let classifier of dataModel.classifiers">
-            <li>{{ classifier.label }}</li>
-        </ul>
         <p class="card-text">{{ dataModel.description }}</p>
 
         <mdm-semantically-linked-items [item]="dataModel" domainType="dataModels" show="sources"></mdm-semantically-linked-items>
