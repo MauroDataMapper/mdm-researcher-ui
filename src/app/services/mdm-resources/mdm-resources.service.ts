@@ -23,7 +23,9 @@ import {  MdmSecurityResource,
           MdmDataClassResource,
           MdmDataElementResource,
           MdmProfileResource,
-          MdmClassifierResource
+          MdmClassifierResource,
+          MdmReferenceDataModelResource,
+          MdmReferenceDataValueResource
  } from '@maurodatamapper/mdm-resources';
 import { MdmRestHandlerService } from './mdm-rest-handler.service';
 
@@ -40,6 +42,8 @@ export class MdmResourcesService {
   dataElement = new MdmDataElementResource(this.resourcesConfig, this.restHandler);
   profileResource = new MdmProfileResource(this.resourcesConfig, this.restHandler);
   classifierResource = new MdmClassifierResource(this.resourcesConfig, this.restHandler);
+  referenceDataModel = new MdmReferenceDataModelResource(this.resourcesConfig, this.restHandler);
+  referenceDataValue = new MdmReferenceDataValueResource(this.resourcesConfig, this.restHandler);
 
   constructor(
     private resourcesConfig: MdmResourcesConfiguration, 

@@ -28,6 +28,7 @@ import { DataModelPageComponent } from '@mdm/data-model-page/data-model-page.com
 import { DataClassPageComponent } from '@mdm/data-class-page/data-class-page.component';
 import { ChildDataClassPageComponent } from '@mdm/child-data-class-page/child-data-class-page.component';
 import { DataElementPageComponent } from '@mdm/data-element-page/data-element-page.component';
+import { ReferenceDataModelPageComponent } from '@mdm/reference-data-model-page/reference-data-model-page.component';
 import { WishlistComponent } from '@mdm/wishlist/wishlist.component';
 
 export const states: Ng2StateDeclaration[] = [
@@ -84,6 +85,11 @@ export const states: Ng2StateDeclaration[] = [
     url: '/dataModel/:dataModelId/dataClass/:dataClassId/dataElement/:id',
     component: DataElementPageComponent
   },
+  {
+    name: 'app.container.referenceDataModel',
+    url: '/referenceDataModel/:id',
+    component: ReferenceDataModelPageComponent
+  },  
   {
     name: 'app.container.notImplemented',
     url: '/not-implemented',

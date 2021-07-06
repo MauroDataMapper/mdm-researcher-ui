@@ -52,6 +52,8 @@ import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/
 import { ProfileComponent } from './shared/profile/profile.component';
 import { SemanticallyLinkedComponent } from './shared/semantically-linked/semantically-linked.component';
 import { DownloadWishlistComponent } from './wishlist/download-wishlist/download-wishlist.component'; 
+import { ReferenceDataModelComponent } from './reference-data-model/reference-data-model.component';
+import { ReferenceDataModelPageComponent } from './reference-data-model-page/reference-data-model-page.component';
 
 
 @NgModule({
@@ -79,6 +81,8 @@ import { DownloadWishlistComponent } from './wishlist/download-wishlist/download
     ProfileComponent,
     SemanticallyLinkedComponent,
     DownloadWishlistComponent
+    ReferenceDataModelPageComponent,
+    ReferenceDataModelComponent
   ],
   imports: [
     BrowserModule,

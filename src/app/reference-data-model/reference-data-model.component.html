@@ -1,0 +1,24 @@
+<div class="card mt-3 mb-3" [ngClass]="{'border-info' : direction}" *ngIf="dataLoaded | async">
+    <div class="card-header" [ngClass]="{'bg-info' : direction}">
+        <span><mdm-link-element [item]="catalogueItem"></mdm-link-element></span>
+    </div>
+    <div class="card-body" [ngClass]="{'collapse' : direction}" id="z{{referenceDataModel.id}}">
+        <mdm-classifiers [classifiers]="referenceDataModel.classifiers"></mdm-classifiers>
+        <p><strong>Author</strong>: {{ referenceDataModel.author }}</p>
+        <p *ngIf="referenceDataModel.aliases"><strong>Aliases</strong>: {{ referenceDataModel.aliases }}</p>
+        <p class="card-text">{{ referenceDataModel.description }}</p>
+
+        <!--<mdm-data-classes [referenceDataModelId]="referenceDataModel.id"></mdm-data-classes>
+
+        <mdm-semantically-linked-items [item]="referenceDataModel" domainType="referenceDataModels" show="sources"></mdm-semantically-linked-items>
+        <mdm-item-profile [item]="referenceDataModel" domainType="referenceDataModels"></mdm-item-profile>-->
+    </div>
+
+   
+</div>
+
+<!--<div class="row mb-3" *ngIf="page && (dataLoaded | async)">
+    <div class="col-12">
+        <mdm-semantically-linked-items [item]="referenceDataModel" domainType="referenceDataModels" show="targets"></mdm-semantically-linked-items>
+    </div>
+</div>-->

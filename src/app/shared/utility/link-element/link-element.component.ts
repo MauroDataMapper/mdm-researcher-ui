@@ -21,6 +21,11 @@ export class LinkElementComponent implements OnInit {
         this.uiRef = "app.container.dataModel";
         break;
       }
+      case "ReferenceDataModel": {
+        this.uiParams = { id: this.item.id };
+        this.uiRef = "app.container.referenceDataModel";
+        break;
+      }      
       case "DataClass": {
         /**
          * If there are breadcrumbs that look like
