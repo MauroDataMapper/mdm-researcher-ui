@@ -19,8 +19,11 @@
 </div>
 
 <div class="row mt-3" *ngIf="localWishlist.length > 0; else elseBlock">
-    <div class="col-12">
+    <div class="col-4">
         <button type="button" class="btn btn-danger" (click)="clearWishlist()">Clear wishlist</button>
+    </div>
+    <div class="col-4">
+        <mdm-download-wishlist></mdm-download-wishlist>
     </div>
 </div>
 
