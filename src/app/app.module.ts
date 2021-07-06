@@ -80,7 +80,7 @@ import { ReferenceDataModelPageComponent } from './reference-data-model-page/ref
     AddToWishlistButtonComponent,
     ProfileComponent,
     SemanticallyLinkedComponent,
-    DownloadWishlistComponent
+    DownloadWishlistComponent,
     ReferenceDataModelPageComponent,
     ReferenceDataModelComponent
   ],
