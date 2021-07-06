@@ -6,7 +6,8 @@
     "paths": {
       "@mdm/*": ["./app/*"],
       "@env/*": ["./environments/*"],
-      "@shared/*": ["./app/shared/*"]
+      "@shared/*": ["./app/shared/*"],
+      "exceljs": ["node_modules/exceljs/dist/exceljs.min"]
     },
     "outDir": "./dist/",
     "emitDecoratorMetadata" : true,
