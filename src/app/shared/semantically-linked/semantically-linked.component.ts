@@ -42,7 +42,11 @@ export class SemanticallyLinkedComponent implements OnInit {
 
   }
 
-  /*show(one: string, two: string): boolean {
-    return one != two;
-  }*/
+  toDataModel(domainType): boolean {
+    return domainType == "DataModel";
+  }
+
+  toDataClass(domainType): boolean {
+    return domainType == "DataClass";
+  }  
 }

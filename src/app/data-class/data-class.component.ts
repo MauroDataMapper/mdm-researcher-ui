@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MdmResourcesService } from '@mdm/services/mdm-resources/mdm-resources.service';
-import { DataClassDetail, DataClassDetailResponse, CatalogueItem, ModelDomainType } from '@maurodatamapper/mdm-resources'; 
-import { UIRouterGlobals, UIRouter, any } from '@uirouter/core';
+import { CatalogueItem, DataClassDetail, DataClassDetailResponse, Uuid } from '@maurodatamapper/mdm-resources'; 
+import { catalogueItem } from '@shared/shared-classes';
 
 @Component({
   selector: 'mdm-data-class',
@@ -9,45 +9,42 @@ import { UIRouterGlobals, UIRouter, any } from '@uirouter/core';
   styleUrls: ['./data-class.component.scss']
 })
 export class DataClassComponent implements OnInit {
+  @Input() dataModelId: Uuid;
+  @Input() id: Uuid;
+  @Input() page: boolean;
+  @Input() linkType: string;
+  @Input() direction: string;  
+  @Input() semanticLink: any;
+
   dataClass: DataClassDetail;
-  catalogueItem: CatalogueItem;
-  childDataClasses: any[] = [];
-  dataElements: any[] = [];
-  id: string;
-  dataModelId: string;
+  catalogueItem: catalogueItem;
+
   dataLoaded: Promise<boolean>;
 
   constructor(
     private resourcesService: MdmResourcesService,
-    private uiRouterGlobals: UIRouterGlobals,
-    private router: UIRouter
     ) { }
 
   ngOnInit(): void {
-    if (!this.uiRouterGlobals.params.id 
-      || !this.uiRouterGlobals.params.dataModelId) {
-      this.router.stateService.go('app.container.notFound');
-      return;
-    }
+    this.doInit();
+  }
 
-    this.id = this.uiRouterGlobals.params.id;
-    this.dataModelId = this.uiRouterGlobals.params.dataModelId;
-
+  doInit(): void {
     this.resourcesService.dataClass
       .get(this.dataModelId, this.id)
       .subscribe(async (result: DataClassDetailResponse) => {
         this.dataClass = result.body;
-        this.catalogueItem = this.dataClass;
 
-        this.resourcesService.dataClass
-        .listChildDataClasses(this.dataModelId, this.id)
-        .subscribe(async (result) => {
-          this.childDataClasses = result.body.items;
+        this.catalogueItem = new catalogueItem();
+        this.catalogueItem.id = this.dataClass.id;
+        this.catalogueItem.domainType = 'DataClass';
+        this.catalogueItem.label = this.dataClass.label;
+        this.catalogueItem.model = this.dataClass.model;
+        this.catalogueItem.breadcrumbs = this.dataClass.breadcrumbs;
+        this.catalogueItem.description = this.dataClass.description;
 
-          this.dataLoaded = Promise.resolve(true);
-        });
 
-
+        this.dataLoaded = Promise.resolve(true);
       });
   }
 

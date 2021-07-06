@@ -1,7 +1,7 @@
 <div class="card mt-3" *ngIf="dataLoaded | async">
     <div class="card-header">
         <span>{{ dataClass.label }}</span>
-        <span class="ml-4 badge badge-pill badge-info">{{ dataClass.domainType }}</span>
+        <span class="ms-4 badge rounded-pill bg-info">{{ dataClass.domainType }}</span>
     </div>
     <div class="card-body">
         <ul *ngFor="let classifier of dataClass.classifiers">

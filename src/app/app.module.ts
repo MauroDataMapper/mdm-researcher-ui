@@ -38,6 +38,7 @@ import { SearchPaginatorComponent } from './shared/search-paginator/search-pagin
 import { LinkElementComponent } from './shared/utility/link-element/link-element.component';
 import { DataModelComponent } from './data-model/data-model.component';
 import { DataClassComponent } from './data-class/data-class.component';
+import { DataClassPageComponent } from './data-class-page/data-class-page.component';
 import { ChildDataClassComponent } from './child-data-class/child-data-class.component';
 import { ChildDataClassesComponent } from './child-data-classes/child-data-classes.component';
 import { DataElementComponent } from './data-element/data-element.component';
@@ -61,6 +62,7 @@ import { DownloadWishlistComponent } from './wishlist/download-wishlist/download
     LinkElementComponent,
     DataModelComponent,
     DataClassComponent,
+    DataClassPageComponent,
     ChildDataClassComponent,
     ChildDataClassesComponent,
     DataElementComponent,
