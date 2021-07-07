@@ -12,13 +12,10 @@
 
         <mdm-semantically-linked-items [item]="dataClass" domainType="dataClasses" show="sources"></mdm-semantically-linked-items>
         <mdm-item-profile [item]="dataClass" domainType="dataClasses"></mdm-item-profile>
-
-
         <mdm-child-data-classes [dataModelId]="dataClass.model" [dataClassId]="dataClass.id"></mdm-child-data-classes>
         <mdm-data-elements [dataModelId]="dataClass.model" [dataClassId]="dataClass.id"></mdm-data-elements>
     </div>
 </div>
-
 <div class="row mb-3" *ngIf="page && (dataLoaded | async)">
     <div class="col-12">
         <mdm-semantically-linked-items [item]="dataClass" domainType="dataClasses" show="targets"></mdm-semantically-linked-items>

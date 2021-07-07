@@ -70,13 +70,6 @@ export class LinkElementComponent implements OnInit {
     }
   }
 
-  /*getDataModelBreadcrumb(element): boolean {
-    return element.domainType === "DataModel";
-  }
-  getDataClassBreadcrumb(element): boolean {
-    return element.domainType === "DataClass";
-  }*/
-
   isBreadcrumbOf(breadcrumbs, position, of): boolean {
     return breadcrumbs[position] !== undefined 
     && breadcrumbs[position].domainType == of;

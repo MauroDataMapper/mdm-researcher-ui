@@ -25,9 +25,7 @@ export class DataElementsComponent implements OnInit {
     .list(this.dataModelId, this.dataClassId)
     .subscribe(async (resp) => {
       this.dataElements = resp.body.items;
-
       this.dataLoaded = Promise.resolve(true);
-
     });
   }
 }
