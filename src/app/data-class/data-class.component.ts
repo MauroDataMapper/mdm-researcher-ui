@@ -27,11 +27,6 @@ export class DataClassComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.doInit();
-  }
-
-  doInit(): void {
-
     if (this.parentDataClassId) {
       this.resourcesService.dataClass
       .getChildDataClass(this.dataModelId, this.parentDataClassId, this.id)
@@ -67,7 +62,5 @@ export class DataClassComponent implements OnInit {
         this.dataLoaded = Promise.resolve(true);
       });
     }
-
   }
-
 }
