@@ -18,6 +18,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { ClassifiersComponent } from './shared/classifiers/classifiers.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { states } from './routing/ui-states';
 import { UIRouterModule } from '@uirouter/angular';
@@ -37,32 +38,51 @@ import { CardDisplayComponent } from './card-display/card-display.component';
 import { SearchPaginatorComponent } from './shared/search-paginator/search-paginator';
 import { LinkElementComponent } from './shared/utility/link-element/link-element.component';
 import { DataModelComponent } from './data-model/data-model.component';
+import { DataModelPageComponent } from './data-model-page/data-model-page.component';
+import { DataClassComponent } from './data-class/data-class.component';
+import { DataClassesComponent } from './data-classes/data-classes.component';
+import { DataClassPageComponent } from './data-class-page/data-class-page.component';
+import { ChildDataClassPageComponent } from './child-data-class-page/child-data-class-page.component';
+import { ChildDataClassesComponent } from './child-data-classes/child-data-classes.component';
 import { DataElementComponent } from './data-element/data-element.component';
+import { DataElementPageComponent } from './data-element-page/data-element-page.component';
+import { DataElementsComponent } from './data-elements/data-elements.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component'; 
 import { ProfileComponent } from './shared/profile/profile.component';
 import { SemanticallyLinkedComponent } from './shared/semantically-linked/semantically-linked.component';
-import { SemanticallyLinkedDataModelComponent } from './shared/semantically-linked-data-model/semantically-linked-data-model.component';
 import { DownloadWishlistComponent } from './wishlist/download-wishlist/download-wishlist.component'; 
+import { ReferenceDataModelComponent } from './reference-data-model/reference-data-model.component';
+import { ReferenceDataModelPageComponent } from './reference-data-model-page/reference-data-model-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AppContainerComponent,
+    ClassifiersComponent,
     UiViewComponent,
     SearchComponent,
     CardDisplayComponent,
     SearchPaginatorComponent,
     LinkElementComponent,
     DataModelComponent,
+    DataModelPageComponent,
+    DataClassComponent,
+    DataClassesComponent,
+    DataClassPageComponent,
+    ChildDataClassPageComponent,
+    ChildDataClassesComponent,
     DataElementComponent,
+    DataElementPageComponent,
+    DataElementsComponent,
     WishlistComponent,
     AddToWishlistButtonComponent,
     ProfileComponent,
     SemanticallyLinkedComponent,
-    SemanticallyLinkedDataModelComponent,
-    DownloadWishlistComponent
+    DownloadWishlistComponent,
+    ReferenceDataModelPageComponent,
+    ReferenceDataModelComponent
   ],
   imports: [
     BrowserModule,

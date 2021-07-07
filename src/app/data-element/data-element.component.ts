@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MdmResourcesService } from '@mdm/services/mdm-resources/mdm-resources.service';
-import { DataElementDetail, DataElementDetailResponse, ModelDomainType } from '@maurodatamapper/mdm-resources'; 
-import { UIRouterGlobals, UIRouter } from '@uirouter/core';
+import { DataElementDetail, DataElementDetailResponse, ModelDomainType, Uuid } from '@maurodatamapper/mdm-resources'; 
+import { catalogueItem } from '@shared/shared-classes';
 
 @Component({
   selector: 'mdm-data-element',
@@ -9,34 +9,38 @@ import { UIRouterGlobals, UIRouter } from '@uirouter/core';
   styleUrls: ['./data-element.component.scss']
 })
 export class DataElementComponent implements OnInit {
+  @Input() dataModelId: Uuid;
+  @Input() dataClassId: Uuid;
+  @Input() id: Uuid;
+  @Input() page: boolean;
+  @Input() linkType: string;
+  @Input() direction: string;  
+  @Input() semanticLink: any;
+
+  catalogueItem: catalogueItem;
   dataElement: DataElementDetail;
-  dataModelId: string;
-  dataClassId: string;
-  id: string;
+
   dataLoaded: Promise<boolean>;
 
   constructor(
-    private resourcesService: MdmResourcesService,
-    private uiRouterGlobals: UIRouterGlobals,
-    private router: UIRouter
+    private resourcesService: MdmResourcesService
   ) { }
 
   ngOnInit(): void {
-    if (!this.uiRouterGlobals.params.id 
-      || !this.uiRouterGlobals.params.dataModelId
-      || !this.uiRouterGlobals.params.dataClassId) {
-      this.router.stateService.go('app.container.notFound');
-      return;
-    }
 
-    this.id = this.uiRouterGlobals.params.id;
-    this.dataModelId = this.uiRouterGlobals.params.dataModelId;
-    this.dataClassId = this.uiRouterGlobals.params.dataClassId;
 
     this.resourcesService.dataElement
       .get(this.dataModelId, this.dataClassId, this.id)
       .subscribe((result: DataElementDetailResponse) => {
         this.dataElement = result.body;
+
+        this.catalogueItem = new catalogueItem();
+        this.catalogueItem.id = this.dataElement.id;
+        this.catalogueItem.domainType = 'DataElement';
+        this.catalogueItem.label = this.dataElement.label;
+        this.catalogueItem.model = this.dataElement.model;
+        this.catalogueItem.breadcrumbs = this.dataElement.breadcrumbs;
+        this.catalogueItem.description = this.dataElement.description;
 
         this.dataLoaded = Promise.resolve(true);
       });
