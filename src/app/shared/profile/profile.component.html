@@ -8,7 +8,7 @@
         <div *ngFor="let field of section.fields" class="mt-1 mb-1">
           <div class="row">
             <div class="col-sm-3">{{ field.fieldName }}</div>
-            <div class="col-sm-1"><i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"></i></div>
+            <div class="col-sm-1"><i class="bi bi-info-circle" placement="top" ngbTooltip="{{ field.description }}"></i></div>
             <div class="col-sm-8">{{ field.currentValue }}</div>
           </div>
         </div>
