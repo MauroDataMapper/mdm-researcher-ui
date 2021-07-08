@@ -7,5 +7,6 @@
         <p><strong>Author</strong>: {{ referenceDataModel.author }}</p>
         <p *ngIf="referenceDataModel.aliases"><strong>Aliases</strong>: {{ referenceDataModel.aliases }}</p>
         <p class="card-text">{{ referenceDataModel.description }}</p>
+        <mdm-reference-data-values [parent]="referenceDataModel"></mdm-reference-data-values>
     </div>
 </div>

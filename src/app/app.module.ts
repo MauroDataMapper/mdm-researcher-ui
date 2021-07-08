@@ -53,7 +53,9 @@ import { ProfileComponent } from './shared/profile/profile.component';
 import { SemanticallyLinkedComponent } from './shared/semantically-linked/semantically-linked.component';
 import { DownloadWishlistComponent } from './wishlist/download-wishlist/download-wishlist.component'; 
 import { ReferenceDataModelComponent } from './reference-data-model/reference-data-model.component';
+import { ReferenceDataValuesComponent } from './reference-data-values/reference-data-values.component';
 import { ReferenceDataModelPageComponent } from './reference-data-model-page/reference-data-model-page.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 
 @NgModule({
@@ -82,7 +84,8 @@ import { ReferenceDataModelPageComponent } from './reference-data-model-page/ref
     SemanticallyLinkedComponent,
     DownloadWishlistComponent,
     ReferenceDataModelPageComponent,
-    ReferenceDataModelComponent
+    ReferenceDataModelComponent,
+    ReferenceDataValuesComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +103,8 @@ import { ReferenceDataModelPageComponent } from './reference-data-model-page/ref
       otherwise: '/not-found'
     }),
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    NgxSkeletonLoaderModule
   ],
   providers: [
     { 
