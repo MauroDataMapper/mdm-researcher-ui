@@ -1,4 +1,36 @@
-<div class="card mt-3 mb-3" [ngClass]="{'border-info' : direction}" *ngIf="dataLoaded | async">
+<div class="pt-5 pe-5 ps-5 pb-2 col-md-12 bg-white" *ngIf="dataLoaded | async">
+    <div class="d-flex bd-highlight">
+        <div class="flex-grow-1 bd-highlight"><h3>{{ dataModel.label }}</h3></div>
+        <div class="bd-highlight"><mdm-add-to-wishlist-button [item]="CatalogueItem"></mdm-add-to-wishlist-button></div>
+      </div>
+    
+    <mdm-classifiers [classifiers]="dataModel.classifiers"></mdm-classifiers>
+    <p *ngIf="dataModel.description" class="mt-4 lead">{{ dataModel.description }}</p>
+</div>
+
+<div class="p-5 col-md-12 bg-white" *ngIf="dataLoaded | async">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="variables-tab" data-bs-toggle="tab" data-bs-target="#variables" type="button" role="tab" aria-controls="variables" aria-selected="true">Variables</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="variables" role="tabpanel" aria-labelledby="home-tab">home content</div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <mdm-item-profile [item]="dataModel" domainType="dataModels"></mdm-item-profile>
+    </div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">contact content</div>
+  </div>
+</div>
+
+<hr />
+<!--<div class="card mt-3 mb-3" [ngClass]="{'border-info' : direction}" *ngIf="dataLoaded | async">
     <div class="card-header" [ngClass]="{'bg-info' : direction}">
         <span *ngIf="direction==='target'">{{ semanticLink.linkType }} </span>
         <span><mdm-link-element [item]="catalogueItem"></mdm-link-element></span>
@@ -26,4 +58,4 @@
     <div class="col-12">
         <mdm-semantically-linked-items [item]="dataModel" domainType="dataModels" show="targets"></mdm-semantically-linked-items>
     </div>
-</div>
+</div>-->
