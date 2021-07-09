@@ -17,15 +17,17 @@
       <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+      <button class="nav-link" id="context-tab" data-bs-toggle="tab" data-bs-target="#context" type="button" role="tab" aria-controls="context" aria-selected="false">Context</button>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="variables" role="tabpanel" aria-labelledby="home-tab">home content</div>
+    <div class="tab-pane fade show active" id="variables" role="tabpanel" aria-labelledby="home-tab">
+        <mdm-data-model-data-classes [dataModelId]="dataModel.id"></mdm-data-model-data-classes>
+    </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <mdm-item-profile [item]="dataModel" domainType="dataModels"></mdm-item-profile>
     </div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">contact content</div>
+    <div class="tab-pane fade" id="context" role="tabpanel" aria-labelledby="context-tab">Links to other models here</div>
   </div>
 </div>
 

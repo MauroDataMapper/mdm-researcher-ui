@@ -50,13 +50,19 @@ import { DataElementsComponent } from './data-elements/data-elements.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component'; 
 import { ProfileComponent } from './shared/profile/profile.component';
+import { ProfileShortComponent } from './shared/profile-short/profile-short.component';
 import { SemanticallyLinkedComponent } from './shared/semantically-linked/semantically-linked.component';
 import { DownloadWishlistComponent } from './wishlist/download-wishlist/download-wishlist.component'; 
 import { ReferenceDataModelComponent } from './reference-data-model/reference-data-model.component';
+import { ReferenceDataModelShortComponent } from './reference-data-model-short/reference-data-model-short.component';
 import { ReferenceDataValuesComponent } from './reference-data-values/reference-data-values.component';
 import { ReferenceDataModelPageComponent } from './reference-data-model-page/reference-data-model-page.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { DataClassDataElementsComponent } from './data-class-data-elements/data-class-data-elements.component';
+import { DataModelDataClassesComponent } from './data-model-data-classes/data-model-data-classes.component';
+import { DataClassDataClassesComponent } from './data-class-data-classes/data-class-data-classes.component';
 
 
 
@@ -83,11 +89,16 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     WishlistComponent,
     AddToWishlistButtonComponent,
     ProfileComponent,
+    ProfileShortComponent,
     SemanticallyLinkedComponent,
     DownloadWishlistComponent,
     ReferenceDataModelPageComponent,
     ReferenceDataModelComponent,
-    ReferenceDataValuesComponent
+    ReferenceDataModelShortComponent,
+    ReferenceDataValuesComponent,
+    DataClassDataElementsComponent,
+    DataClassDataClassesComponent,
+    DataModelDataClassesComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +118,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     FormsModule,
     NgxSkeletonLoaderModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    NgbPaginationModule
   ],
   providers: [
     { 

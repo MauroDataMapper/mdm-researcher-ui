@@ -1,0 +1,29 @@
+<div *ngFor="let dataElement of dataElements" class="mt-2 mb-3 p-2 border border-1 rounded-2">
+    <div class="row m-2 ms-0">
+        <div class="col-md-12">
+            <div>
+                <h4 class="d-inline-flex">{{ dataElement.label }}</h4>
+                <span class="ms-4 badge rounded-pill bg-secondary" *ngIf="dataElement.dataType.domainType=='PrimitiveType'">{{ dataElement.dataType.label }}</span>
+                <span class="ms-4 badge rounded-pill bg-secondary" *ngIf="dataElement.dataType.domainType=='EnumerationType'">Enumeration</span>
+                <span class="ms-4 badge rounded-pill bg-secondary" *ngIf="dataElement.dataType.domainType=='ModelDataType' && dataElement.dataType.modelResourceDomainType=='ReferenceDataModel'">Reference</span>
+            </div>     
+            <div class="mt-2 mb-3 p-2 border border-1 rounded-2 bg-light" *ngIf="dataElement.dataType.domainType=='EnumerationType'">
+                <h5>Enumeration Values</h5>
+                <span class="me-4" *ngFor="let enumerationValue of dataElement.dataType.enumerationValues">
+                    {{ enumerationValue.key }}: {{ enumerationValue.value}}
+                </span>
+            </div>
+            <div class="mt-2 mb-3 p-2 border border-1 rounded-2 bg-light" *ngIf="dataElement.dataType.domainType=='ModelDataType' && dataElement.dataType.modelResourceDomainType=='ReferenceDataModel'">
+                <mdm-reference-data-model-short [id]="dataElement.dataType.modelResourceId"></mdm-reference-data-model-short>
+            </div>                
+            <p class="lead" *ngIf="dataElement.description">
+                {{ dataElement.description }}
+            </p>  
+        </div>
+    </div>
+    <div class="row m-2 ms-0">
+        <div class="col-md-12">
+            <mdm-item-profile-short [item]="dataElement" domainType="dataElements"></mdm-item-profile-short>
+        </div>
+    </div>  
+</div>
