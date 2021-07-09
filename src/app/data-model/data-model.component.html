@@ -27,7 +27,9 @@
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <mdm-item-profile [item]="dataModel" domainType="dataModels"></mdm-item-profile>
     </div>
-    <div class="tab-pane fade" id="context" role="tabpanel" aria-labelledby="context-tab">Links to other models here</div>
+    <div class="tab-pane fade" id="context" role="tabpanel" aria-labelledby="context-tab">
+      <mdm-semantic-links [item]="dataModel" domainType="dataModels"></mdm-semantic-links>
+    </div>
   </div>
 </div>
 

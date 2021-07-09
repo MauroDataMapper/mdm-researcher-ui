@@ -52,6 +52,7 @@ import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/
 import { ProfileComponent } from './shared/profile/profile.component';
 import { ProfileShortComponent } from './shared/profile-short/profile-short.component';
 import { SemanticallyLinkedComponent } from './shared/semantically-linked/semantically-linked.component';
+import { SemanticLinksComponent } from './shared/semantic-links/semantic-links.component';
 import { DownloadWishlistComponent } from './wishlist/download-wishlist/download-wishlist.component'; 
 import { ReferenceDataModelComponent } from './reference-data-model/reference-data-model.component';
 import { ReferenceDataModelShortComponent } from './reference-data-model-short/reference-data-model-short.component';
@@ -91,6 +92,7 @@ import { DataClassDataClassesComponent } from './data-class-data-classes/data-cl
     ProfileComponent,
     ProfileShortComponent,
     SemanticallyLinkedComponent,
+    SemanticLinksComponent,
     DownloadWishlistComponent,
     ReferenceDataModelPageComponent,
     ReferenceDataModelComponent,
