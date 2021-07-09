@@ -1,18 +1,8 @@
 <div *ngFor="let provider of profileProviders">
   <div *ngFor="let section of profileSections[provider.namespace + '|' + provider.name]">
     <div *ngIf="section.fields.length > 0" class="table table-striped" class="row pt-4 pb-4">
-      <div class="col-md-12">
-        <h4>{{ section.sectionName }}</h4>
-        <p><strong>{{ section.sectionDescription }}</strong></p>
-
-        <div *ngFor="let field of section.fields" class="mt-1 mb-1">
-          <div class="row">
-            <div class="col-sm-3">{{ field.fieldName }}</div>
-            <div class="col-sm-1"><i class="bi bi-info-circle" placement="top" ngbTooltip="{{ field.description }}"></i></div>
-            <div class="col-sm-8">{{ field.currentValue }}</div>
-          </div>
-        </div>
-      </div>
+      <mdm-item-profile-section [section]="section"></mdm-item-profile-section>
+      <mdm-target-profile-section *ngIf="item.domainType=='DataModel' && section.sectionName=='Temporal'" [item]="item" domainType="dataModels" [providerNamespace]="provider.namespace" [providerName]="provider.name" [sectionName]="section.sectionName"></mdm-target-profile-section>
     </div>
   </div>
 </div>
