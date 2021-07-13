@@ -57,7 +57,6 @@ import { ReferenceDataValuesComponent } from './reference-data-values/reference-
 import { ReferenceDataModelPageComponent } from './reference-data-model-page/reference-data-model-page.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
-
 @NgModule({
   declarations: [
     AppComponent,
