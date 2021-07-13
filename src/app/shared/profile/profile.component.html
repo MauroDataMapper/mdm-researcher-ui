@@ -1,27 +1,8 @@
 <div *ngFor="let provider of profileProviders">
-    <h3>{{ provider.displayName }}</h3>
-    <div *ngFor="let section of profileSections[provider.namespace + '|' + provider.name]">
-      <div>
-          
-      </div>
-      <h3>{{ section.sectionName }}</h3>
-      <p>{{ section.sectionDescription }}</p>
-
-      <table *ngIf="section.fields.length > 0" class="table table-striped">
-          <thead>
-              <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Current Value</th>
-              </tr>    
-           </thead> 
-           <tbody>
-              <tr *ngFor="let field of section.fields">
-                  <td>{{ field.fieldName }}</td>
-                  <td>{{ field.description }}</td>
-                  <td>{{ field.currentValue }}</td>
-              </tr>
-           </tbody>  
-      </table>            
+  <div *ngFor="let section of profileSections[provider.namespace + '|' + provider.name]">
+    <div *ngIf="section.fields.length > 0" class="table table-striped" class="row pt-4 pb-4">
+      <mdm-item-profile-section [section]="section"></mdm-item-profile-section>
+      <mdm-target-profile-section *ngIf="item.domainType=='DataModel' && section.sectionName=='Temporal'" [item]="item" domainType="dataModels" [providerNamespace]="provider.namespace" [providerName]="provider.name" [sectionName]="section.sectionName"></mdm-target-profile-section>
     </div>
   </div>
+</div>

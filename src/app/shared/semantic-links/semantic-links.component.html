@@ -1,0 +1,12 @@
+<div class="row lead m-2 ms-0" *ngIf="dataLoaded | async">
+    <div class="col-md-12">
+        <p>This tab provides contextual links to semantically linked items (if any).</p>
+    </div>
+</div>
+<div class="row lead m2 ms-0" *ngIf="dataLoaded | async">
+    <div class="col-md-12" *ngFor="let link of semanticLinks">
+        <mdm-link-element [item]="link.sourceMultiFacetAwareItem"></mdm-link-element>
+        <span> {{ link.linkType }} </span>
+        <mdm-link-element [item]="link.targetMultiFacetAwareItem"></mdm-link-element>
+    </div> 
+</div>

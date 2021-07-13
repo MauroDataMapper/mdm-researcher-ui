@@ -20,7 +20,7 @@ import { Component, Input, ViewChild, AfterViewInit, ChangeDetectorRef, EventEmi
 import { MdmResourcesService } from '@mdm/services/mdm-resources/mdm-resources.service';
 import { merge, Observable } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { SearchPaginatorComponent } from '../shared/search-paginator/search-paginator';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 //import { GridService } from '@mdm/services/grid.service';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -32,7 +32,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ReferenceDataValuesComponent implements AfterViewInit {
    @Input() parent: any;
    @Output() totalCount = new EventEmitter<string>();
-   @ViewChild(SearchPaginatorComponent, { static: true }) paginator: SearchPaginatorComponent;
+   @ViewChild(NgbPagination, { static: true }) paginator: NgbPagination;
    @ViewChildren('filters', { read: ElementRef }) filters: ElementRef[];
    dataSource = new MatTableDataSource<any>();
    records: any[] = [];
@@ -58,10 +58,11 @@ export class ReferenceDataValuesComponent implements AfterViewInit {
 
    displayReferenceDataValues = () => {
       this.changeRef.detectChanges();
-      this.filterEvent.subscribe(() => (this.paginator.pageIndex = 0));
-      merge(this.paginator.page, this.filterEvent).pipe(startWith({}), switchMap(() => {
+      this.filterEvent.subscribe(() => (this.paginator.page = 0));
+      merge(this.paginator.pageChange, this.filterEvent).pipe(startWith({}), switchMap(() => {
          this.isLoadingResults = true;
-         return this.contentFetch(this.paginator.pageSize, this.paginator.pageIndex, this.filter);
+         var results = this.contentFetch(this.paginator.pageSize, this.paginator.page, this.filter);
+         return results;
       }), map((data: any) => {
          this.totalItemCount = data.body.count;
          this.totalCount.emit(String(data.body.count));
@@ -122,7 +123,7 @@ export class ReferenceDataValuesComponent implements AfterViewInit {
    contentFetch(pageSize?, pageIndex?, filters?): Observable<any> {
       const options = {
          max: pageSize,
-         offset: pageIndex,
+         offset: (pageIndex - 1) * pageSize,
          asRows: true
       };
 
@@ -134,7 +135,7 @@ export class ReferenceDataValuesComponent implements AfterViewInit {
       if (this.hideFilters) {
          return this.resources.referenceDataValue.list(this.parent.id, options);
       } else {
-         return this.resources.referenceDataValue.search(this.parent.id, { search: this.searchTerm, max: pageSize, offset: pageIndex });
+         return this.resources.referenceDataValue.search(this.parent.id, { search: this.searchTerm, max: pageSize, offset: (pageIndex - 1) * pageSize });
       }
    }
 }

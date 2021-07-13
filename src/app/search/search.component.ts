@@ -143,7 +143,7 @@ export class SearchComponent implements OnInit {
         createdAfter: null,
         createdBefore: null,
         dataModelTypes: null,
-        domainTypes: [],
+        domainTypes: ["DataModel"],
         labelOnly: false,
         lastUpdatedAfter: null,
         lastUpdatedBefore: null,
