@@ -20,6 +20,6 @@ export const environment = {
   name: 'production',
   appTitle: 'Researcher UI',
   appDescription: 'Researcher UI',
-  apiEndpoint: '../api',
+  apiEndpoint: '../mauro/api',
   checkSessionExpiryTimeout: 300000  
 };
