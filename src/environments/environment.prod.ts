@@ -20,4 +20,6 @@ export const environment = {
   name: 'production',
   appTitle: 'Researcher UI',
   appDescription: 'Researcher UI',
+  apiEndpoint: '../api',
+  checkSessionExpiryTimeout: 300000  
 };
