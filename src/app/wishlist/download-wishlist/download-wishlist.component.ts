@@ -3,7 +3,6 @@ import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { catalogueItem } from '@mdm/shared/shared-classes';
 import { LocalStorageHandlerService } from '@mdm/services/local-storage/local-storage-handler.service';
-import { WishlistDownloadElement } from '@mdm/models/wishlist-download-element';
 import { DataElementFieldsProviderService } from '@mdm/services/data-providers/data-element-fields-provider.service';
 
 @Component({
@@ -14,7 +13,6 @@ import { DataElementFieldsProviderService } from '@mdm/services/data-providers/d
 export class DownloadWishlistComponent implements OnInit {
 
   localWishlist: catalogueItem[] = [];
-  wishlistDownloads: WishlistDownloadElement[] = [];
 
   constructor(
     private localStorage: LocalStorageHandlerService,
