@@ -3,9 +3,7 @@ import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { catalogueItem } from '@mdm/shared/shared-classes';
 import { LocalStorageHandlerService } from '@mdm/services/local-storage/local-storage-handler.service';
-import { MdmResourcesService } from '@mdm/services/mdm-resources/mdm-resources.service';
-import { DataModelDetailResponse, ModelDomainType } from '@maurodatamapper/mdm-resources'; 
-import { Field, Provider, Section, WishlistDownloadElement } from '@mdm/models/wishlist-download-element';
+import { DataElementFieldsProviderService } from '@mdm/services/data-providers/data-element-fields-provider.service';
 
 @Component({
   selector: 'mdm-download-wishlist',
@@ -15,11 +13,10 @@ import { Field, Provider, Section, WishlistDownloadElement } from '@mdm/models/w
 export class DownloadWishlistComponent implements OnInit {
 
   localWishlist: catalogueItem[] = [];
-  wishlistDownloads: WishlistDownloadElement[] = [];
 
   constructor(
     private localStorage: LocalStorageHandlerService,
-    private resourcesService: MdmResourcesService,
+    private dataElementFieldsProvider: DataElementFieldsProviderService,
   ) { }
 
   ngOnInit(): void {
@@ -28,90 +25,89 @@ export class DownloadWishlistComponent implements OnInit {
     }
   }
 
-  exportToSpreadsheet(): void {
-    this.fetchData(); 
-
-    // Create a new workbook
+  async exportToSpreadsheet() {
     let workbook = new Workbook();
 
-    for (let _wishListDownloadElement of this.wishlistDownloads) {
-      var wishListDownloadElement: WishlistDownloadElement = _wishListDownloadElement;
+    // For each element in the wish list
+    for (let wishListIndex = 0; wishListIndex < this.localWishlist.length; wishListIndex++) {
+      const result = await this.fetchDataFor(this.localWishlist[wishListIndex].id);
 
-      // Add a new tab for each item the wishlist using the label as name
-      let worksheet = workbook.addWorksheet(wishListDownloadElement.label);
+      if (!result) {
+        let worksheet = workbook.addWorksheet(this.localWishlist[wishListIndex].label);
+        worksheet.columns = [
+          {header: 'Empty DataModel', key: 'Empty DataModel', width:30}
+        ];
+        continue;
+      }
 
-      // Columns of the tab
-      worksheet.columns = [
-        {header: 'Variable Name', key: 'variableName'},
-        {header: 'Description', key: 'description'},
-        {header: 'Current Value', key: 'currentValue'},
-        {header: 'Request variable (Y/N)', key: 'requestVariable'},
-        {header: 'Justification Needed (Y/N)', key: 'justificationNeeded'},
-        {header: 'Justification', key: 'justification'}
-      ];
-
-      // Add 1 row for each section of each profile
-      for (let _provider of wishListDownloadElement.profileProviders) {
-        var provider : Provider = _provider;
-        for (let _section of wishListDownloadElement.profileSections[`${provider.namespace}|${provider.name}`]) {
-          var section: Section = _section;
-          if (section.fields.length > 0) {
-            for (let _field of section.fields) {
-              var field: Field = _field;
-              worksheet.addRow({
-                variableName: field.fieldName,
-                description: field.description,
-                currentValue: field.currentValue,
-                requestVariable: "",
-                justificationNeeded: "",
-                justification: ""
-              });
-            }
-          }
+      let worksheet = workbook.addWorksheet(this.localWishlist[wishListIndex].label);
+      let myColumns = [];
+      worksheet.columns = [];
+  
+      let uniqueColumnName: string[] = [];
+  
+      // Get a list for all the unique names for fields across all dataElements in this tab
+      uniqueColumnName.push('Variable Name');
+      for (let ii = 0; ii < result.length; ii++) {
+        for (let jj = 0; jj < result[ii].profilesFields.length; jj++) {
+          this.addIfUnique(result[ii].profilesFields[jj].fieldName, uniqueColumnName);
         }
+      }
+      this.addIfUnique('Request variable (Y/N)', uniqueColumnName);
+      this.addIfUnique('Justification Needed (Y/N)', uniqueColumnName);
+      this.addIfUnique('Justification', uniqueColumnName);
+  
+      // Add the column names
+      uniqueColumnName.forEach(columnName => {
+        myColumns.push({header: columnName, key: columnName, width:20});
+      });
+  
+      // Solves an issue where, if you try to push elements to the worksheet.columns list
+      // it errors when generating the file
+      worksheet.columns = myColumns;
+  
+      // For each DE in the DM
+      for (let ii = 0; ii < result.length; ii++) {
+        let rowValues = [];
+        // Look for the column index of the name and
+        // use it to set the appropiate cell of the row
+        var prefixedIndex = uniqueColumnName.indexOf('Variable Name');
+        rowValues[prefixedIndex] = result[ii].dataElementLabel;
+  
+        result[ii].profilesFields.forEach(field => {
+          let index = uniqueColumnName.indexOf(field.fieldName);
+          rowValues[index] = field.currentValue;
+        });
+  
+        var prefixedIndex = uniqueColumnName.indexOf('Request variable (Y/N)');
+        rowValues[prefixedIndex] = "";
+        var prefixedIndex = uniqueColumnName.indexOf('Justification Needed (Y/N)');
+        rowValues[prefixedIndex] = "";
+        var prefixedIndex = uniqueColumnName.indexOf('Justification');
+        rowValues[prefixedIndex] = "If Justification Needed, please fill this.";
+
+        worksheet.addRow(rowValues);
       }
     }
 
+    // Use the date to create a somehow unique name for the file with format:
+    // DataLoch_Request_Form_<dayOfMonth>_<monthOfYear>_<fullYear>_<currentTimeHours>_<currentTimeMinutes>_<currentTimeSecs>_<currentTimeMilisecs>
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       var today = new Date();
 
-      fs.saveAs(blob, `DataLoch_Request_Form_${today.getDay()}_
-      ${today.getMonth() + 1}_${today.getFullYear()}_${today.getHours()}_
-      ${today.getMinutes()}_${today.getMilliseconds()}.xlsx`);
+      var currentMonth: number = today.getMonth()+1
+      fs.saveAs(blob, `DataLoch_Request_Form_${today.getDate()}_${currentMonth}_${today.getFullYear()}_${today.getHours()}_${today.getMinutes()}_${today.getSeconds()}_${today.getMilliseconds()}.xlsx`);
     });
   }
 
-  fetchData(){
-    for (let ii = 0; ii < this.localWishlist.length; ii++) {
-      let wishlistElement = new WishlistDownloadElement();
-      wishlistElement.label = this.localWishlist[ii].label;
+  async fetchDataFor(dataModelId: string) {
+    return this.dataElementFieldsProvider.getDataElementFields(dataModelId).toPromise();
+  }
 
-      this.resourcesService.dataModel
-      .get(this.localWishlist[ii].id)
-      .subscribe(async (result: DataModelDetailResponse) => {
-          wishlistElement.catalogueItem = result.body;
-
-          //Get all dynamic profile providers
-          this.resourcesService.profileResource.usedProfiles(ModelDomainType.DataModels, wishlistElement.catalogueItem.id)
-          .subscribe((resp) => {
-            resp.body.forEach((provider) => {
-              wishlistElement.profileProviders.push(provider);
-            });
-
-          //For each dynamic profile provider that applies to DataModel, list the profile sections in
-          //indexed by [provider.namespace | provider.name]
-          wishlistElement.profileProviders.forEach((provider) => {
-            this.resourcesService.profileResource
-            .profile(ModelDomainType.DataModels, wishlistElement.catalogueItem.id, provider.namespace, provider.name)
-            .subscribe((resp) => {
-              wishlistElement.profileSections[provider.namespace + '|' + provider.name] = resp.body.sections;
-            });
-          });
-
-          this.wishlistDownloads.push(wishlistElement);
-        });
-      });
+  private addIfUnique(element: string, list: string[]) {
+    if (list.indexOf(element) == -1) {
+      list.push(element);
     }
   }
 }

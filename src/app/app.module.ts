@@ -69,7 +69,6 @@ import { DataModelDataClassesComponent } from './data-model-data-classes/data-mo
 import { DataClassDataClassesComponent } from './data-class-data-classes/data-class-data-classes.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
