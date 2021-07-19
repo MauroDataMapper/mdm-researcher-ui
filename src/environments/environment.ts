@@ -21,7 +21,7 @@
 export const environment = {
   production: false,
   apiEndpoint: 'http://localhost:8080/api',
-  themeName: 'default',
+  themeName: 'dataloch',
   name: 'development',
   appTitle: 'Researcher UI',
   appDescription: 'Researcher UI',

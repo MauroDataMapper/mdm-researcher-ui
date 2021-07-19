@@ -10,7 +10,10 @@
     </div>
     <div class="col-8">
         <div class="d-flex justify-content-center">
-            <input #searchInputControl type="text"  id="searchBarInput" [(ngModel)]="searchTerm" class="form-control" placeholder="I'm looking for..."> 
+            <div class="input-group mb-3">
+                <input #searchInputControl type="text"  id="searchBarInput" [(ngModel)]="searchTerm" class="form-control" placeholder="I'm looking for..."> 
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
         </div>
     </div>
 
@@ -19,7 +22,7 @@
     <div class="col-12">
         <div *ngIf="!neverSearched">
             <div *ngIf="searchResults.length > 0; else elseBlock" >
-                <div class="heading-container">
+                <div>
                     <h4 class="mt-4">Search result(s) <span class="badge badge-element-count">{{searchCount}}</span> </h4>
                   </div>                
                 <div *ngFor="let result of searchResults">
