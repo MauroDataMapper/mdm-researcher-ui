@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Workbook } from 'exceljs';
+import { Workbook, Worksheet } from 'exceljs';
 import * as fs from 'file-saver';
 import { catalogueItem } from '@mdm/shared/shared-classes';
 import { LocalStorageHandlerService } from '@mdm/services/local-storage/local-storage-handler.service';
@@ -44,61 +44,23 @@ export class DownloadWishlistComponent implements OnInit {
       let myColumns = [];
       worksheet.columns = [];
   
-      let uniqueColumnName: string[] = [];
-  
-      // Get a list for all the unique names for fields across all dataElements in this tab
-      uniqueColumnName.push('Variable Name');
-      for (let ii = 0; ii < result.length; ii++) {
-        for (let jj = 0; jj < result[ii].profilesFields.length; jj++) {
-          this.addIfUnique(result[ii].profilesFields[jj].fieldName, uniqueColumnName);
-        }
-      }
-      this.addIfUnique('Request variable (Y/N)', uniqueColumnName);
-      this.addIfUnique('Justification Needed (Y/N)', uniqueColumnName);
-      this.addIfUnique('Justification', uniqueColumnName);
-  
+      this.handleHiddenFields(result);
+      
+      let uniqueColumnName = this.getUniqueColumnsFromFields(result);
+
       // Add the column names
       uniqueColumnName.forEach(columnName => {
         myColumns.push({header: columnName, key: columnName, width:20});
       });
-  
+
       // Solves an issue where, if you try to push elements to the worksheet.columns list
       // it errors when generating the file
       worksheet.columns = myColumns;
-  
-      // For each DE in the DM
-      for (let ii = 0; ii < result.length; ii++) {
-        let rowValues = [];
-        // Look for the column index of the name and
-        // use it to set the appropiate cell of the row
-        var prefixedIndex = uniqueColumnName.indexOf('Variable Name');
-        rowValues[prefixedIndex] = result[ii].dataElementLabel;
-  
-        result[ii].profilesFields.forEach(field => {
-          let index = uniqueColumnName.indexOf(field.fieldName);
-          rowValues[index] = field.currentValue;
-        });
-  
-        var prefixedIndex = uniqueColumnName.indexOf('Request variable (Y/N)');
-        rowValues[prefixedIndex] = "";
-        var prefixedIndex = uniqueColumnName.indexOf('Justification Needed (Y/N)');
-        rowValues[prefixedIndex] = "";
-        var prefixedIndex = uniqueColumnName.indexOf('Justification');
-        rowValues[prefixedIndex] = "If Justification Needed, please fill this.";
 
-        worksheet.addRow(rowValues);
-      }
+      this.printRows(result, uniqueColumnName, worksheet);  
     }
 
-    // Use the date to create a somehow unique name for the file with format:
-    // DataLoch_Request_Form_<dayOfMonth>_<monthOfYear>_<fullYear>_<currentTimeHours>_<currentTimeMinutes>_<currentTimeSecs>_<currentTimeMilisecs>
-    workbook.xlsx.writeBuffer().then((data) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      var today = new Date();
-
-      var currentMonth: number = today.getMonth()+1
-      fs.saveAs(blob, `DataLoch_Request_Form_${today.getDate()}_${currentMonth}_${today.getFullYear()}_${today.getHours()}_${today.getMinutes()}_${today.getSeconds()}_${today.getMilliseconds()}.xlsx`);
-    });
+    this.downloadAsFile(workbook)
   }
 
   async fetchDataFor(dataModelId: string) {
@@ -109,5 +71,89 @@ export class DownloadWishlistComponent implements OnInit {
     if (list.indexOf(element) == -1) {
       list.push(element);
     }
+  }
+
+  private handleHiddenFields(result: any) {
+    // Consider _hidden field
+    for (let ii = 0; ii < result.length; ii++) {
+      // Get all _hidden fields
+      let _hidden = result[ii].profilesFields.filter(f => f.fieldName === "_hidden");
+
+      if (_hidden.length < 1) {
+        continue;
+      }
+      
+      // Take the current values of all the fields into one array
+      let _hiddenFieldsValues = _hidden.map(hid => {return hid.currentValue});
+
+      // Join the previous arrays into one single string, 
+      // then separate by ";"
+      let _hiddenFields = _hiddenFieldsValues.join().split(";");
+
+      // Trim each entry
+      for (let jj = 0; jj < _hiddenFields.length; jj++) {
+
+        if (_hiddenFields[jj] && _hiddenFields[jj].length > 0) {
+          _hiddenFields[jj] = _hiddenFields[jj].trimStart();
+        }
+      }
+
+      // Filter the list to be only those elements that are not hidden or the _hidden field itself
+      result[ii].profilesFields = result[ii].profilesFields.filter(f => _hiddenFields.indexOf(f.fieldName) === -1);
+      result[ii].profilesFields = result[ii].profilesFields.filter(f => f.fieldName !== "_hidden");
+    }
+  }
+
+  private getUniqueColumnsFromFields(result: any) {
+    let uniqueColumnName: string[] = [];
+    // Get a list for all the unique names for fields across all dataElements in this tab
+    uniqueColumnName.push('Variable Name');
+    for (let ii = 0; ii < result.length; ii++) {
+      for (let jj = 0; jj < result[ii].profilesFields.length; jj++) {
+        this.addIfUnique(result[ii].profilesFields[jj].fieldName, uniqueColumnName);
+      }
+    }
+    this.addIfUnique('Request variable (Y/N)', uniqueColumnName);
+    this.addIfUnique('Justification Needed (Y/N)', uniqueColumnName);
+    this.addIfUnique('Justification', uniqueColumnName);
+
+    return uniqueColumnName;
+  }
+
+  private printRows(result: any, uniqueColumnName: string[], worksheet: Worksheet) {
+    // For each DE in the DM
+    for (let ii = 0; ii < result.length; ii++) {
+      let rowValues = [];
+      // Look for the column index of the name and
+      // use it to set the appropiate cell of the row
+      var prefixedIndex = uniqueColumnName.indexOf('Variable Name');
+      rowValues[prefixedIndex] = result[ii].dataElementLabel;
+
+      result[ii].profilesFields.forEach(field => {
+        let index = uniqueColumnName.indexOf(field.fieldName);
+        rowValues[index] = field.currentValue;
+      });
+
+      var prefixedIndex = uniqueColumnName.indexOf('Request variable (Y/N)');
+      rowValues[prefixedIndex] = "";
+      var prefixedIndex = uniqueColumnName.indexOf('Justification Needed (Y/N)');
+      rowValues[prefixedIndex] = "";
+      var prefixedIndex = uniqueColumnName.indexOf('Justification');
+      rowValues[prefixedIndex] = "If Justification Needed, please fill this.";
+
+      worksheet.addRow(rowValues);
+    }
+  }
+
+  private downloadAsFile(workbook: Workbook) {
+    // Use the date to create a somehow unique name for the file with format:
+    // DataLoch_Request_Form_<dayOfMonth>_<monthOfYear>_<fullYear>_<currentTimeHours>_<currentTimeMinutes>_<currentTimeSecs>_<currentTimeMilisecs>
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      var today = new Date();
+
+      var currentMonth: number = today.getMonth()+1
+      fs.saveAs(blob, `DataLoch_Request_Form_${today.getDate()}_${currentMonth}_${today.getFullYear()}_${today.getHours()}_${today.getMinutes()}_${today.getSeconds()}_${today.getMilliseconds()}.xlsx`);
+    });
   }
 }
