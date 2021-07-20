@@ -1,0 +1,196 @@
+
+
+ @import "~@angular/material/theming";
+ @import "components/custom";
+ 
+ /* Primary values */
+ $dataloch-palette-primary: (
+   50: #e0e5e9,
+   100: #b3bdc8,
+   200: #8091a3,
+   300: #4d657e,
+   400: #264463,
+   500: #334c61, //Dark Loch Blue
+   600: #001f40,
+   700: #001a37,
+   800: #00152f,
+   900: #000c20,
+   A100: #5d7fff,
+   A200: #2a57ff,
+   A400: #0034f6,
+   A700: #002edc,
+   contrast: (
+     50: #000000,
+     100: #000000,
+     200: #000000,
+     300: #ffffff,
+     400: #ffffff,
+     500: #ffffff,
+     600: #ffffff,
+     700: #ffffff,
+     800: #ffffff,
+     900: #ffffff,
+     A100: #000000,
+     A200: #ffffff,
+     A400: #ffffff,
+     A700: #ffffff
+   )
+ );
+ 
+ /* Accent values */
+ $dataloch-palette-accent: (
+     50 : #e7f1e8,
+     100 : #c3ddc5,
+     200 : #9cc79e,
+     300 : #74b077,
+     400 : #569f59,
+     500 : #63bda3, //Clinical Green
+     600 : #328636,
+     700 : #2b7b2e,
+     800 : #247127,
+     900 : #175f1a,
+     A100 : #9aff9d,
+     A200 : #67ff6b,
+     A400 : #34ff3a,
+     A700 : #1aff21,
+     contrast: (
+         50 : #000000,
+         100 : #000000,
+         200 : #000000,
+         300 : #000000,
+         400 : #000000,
+         500 : #ffffff,
+         600 : #ffffff,
+         700 : #ffffff,
+         800 : #ffffff,
+         900 : #ffffff,
+         A100 : #000000,
+         A200 : #000000,
+         A400 : #000000,
+         A700 : #000000,
+     )
+ );
+ 
+ /* Warn values */
+ $dataloch-palette-warn: (
+   50: #f4e3e5,
+   100: #e4b8bf,
+   200: #d28995,
+   300: #c0596a,
+   400: #b3364a,
+   500: #a5122a,
+   600: #9d1025,
+   700: #930d1f,
+   800: #8a0a19,
+   900: #79050f,
+   A100: #ffa8ac,
+   A200: #ff757b,
+   A400: #ff424a,
+   A700: #ff2832,
+   contrast: (
+     50: #000000,
+     100: #000000,
+     200: #000000,
+     300: #ffffff,
+     400: #ffffff,
+     500: #ffffff,
+     600: #ffffff,
+     700: #ffffff,
+     800: #ffffff,
+     900: #ffffff,
+     A100: #000000,
+     A200: #000000,
+     A400: #ffffff,
+     A700: #ffffff
+   )
+ );
+
+ body,
+ mdm-root {
+     background-color: #eeeeee !important; //GP Grey
+ }
+
+ $dataloch-theme-primary: mat-palette($dataloch-palette-primary);
+ $dataloch-theme-accent: mat-palette($dataloch-palette-accent);
+ $dataloch-theme-warn: mat-palette($dataloch-palette-warn);
+ 
+ $dataloch-theme: mat-light-theme(
+   $dataloch-theme-primary,
+   $dataloch-theme-accent,
+   $dataloch-theme-warn
+ );
+ 
+ $dataloch-typography: mat-typography-config(
+   $font-family: "Source Sans Pro, sans-serif",
+   $body-1: mat-typography-level(17px, 26px, 500),
+   $body-2: mat-typography-level(18px, 26px, 500),
+   $headline: mat-typography-level(36px, 42px, 600),
+   $title: mat-typography-level(32px, 38px, 600),
+   $subheading-2: mat-typography-level(45px, 32px, 600),
+   $subheading-1: mat-typography-level(35px, 28px, 600),
+   $button: mat-typography-level(18px, 26px, 600),
+   $input: mat-typography-level(18px, 1.125, 500)
+ );
+ 
+ .dataloch-theme {
+   @include angular-material-theme($dataloch-theme);    
+   @include angular-material-typography($dataloch-typography);
+   @include mdm-custom-components-theme($dataloch-theme);
+ }
+
+header.mdm-header {
+    z-index: 1000;
+
+    .mdm-navbar {
+        height: 100px;
+
+        .mdm-navbar--nav {
+            width: 100%;
+        }
+    }
+
+    .spacer {
+        flex: 1 1 auto;
+    }
+
+    .mdm-navbar__brand {
+        .mdm-navbar__brand--logo {
+            img {
+                max-width: 240px !important;
+            }
+        }
+    }
+
+    .mdm-navbar__items {
+        display: flex;
+        align-items: center;
+
+        a {
+            display: inline-block;
+            line-height: 1;
+            @include font(20px, 600);
+            padding: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+            text-decoration: none;
+        }
+
+        a.active {
+            border-bottom: 2px solid #63bda3 !important;
+        }
+
+        a:hover {
+            border-bottom: 2px solid #63bda3 !important;
+        }
+
+    }   
+}
+
+.badge-element-count {
+    background-color: #d2d2d2 !important;
+    font-size: 80% !important;
+}
+
+.badge-classifier {
+    background-color: #63bda3; //Clinical Green
+}

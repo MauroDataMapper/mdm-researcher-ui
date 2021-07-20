@@ -16,7 +16,7 @@
 
 export const environment = {
   production: true,
-  themeName: 'default',
+  themeName: 'dataloch',
   name: 'production',
   appTitle: 'Researcher UI',
   appDescription: 'Researcher UI',
