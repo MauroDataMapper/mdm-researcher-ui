@@ -43,7 +43,9 @@ export class DownloadWishlistComponent implements OnInit {
       let worksheet = workbook.addWorksheet(this.localWishlist[wishListIndex].label);
       let myColumns = [];
       worksheet.columns = [];
-        
+  
+      this.handleHiddenFields(result);
+      
       let uniqueColumnName = this.getUniqueColumnsFromFields(result);
 
       // Add the column names
@@ -68,6 +70,37 @@ export class DownloadWishlistComponent implements OnInit {
   private addIfUnique(element: string, list: string[]) {
     if (list.indexOf(element) == -1) {
       list.push(element);
+    }
+  }
+
+  private handleHiddenFields(result: any) {
+    // Consider _hidden field
+    for (let ii = 0; ii < result.length; ii++) {
+      // Get all _hidden fields
+      let _hidden = result[ii].profilesFields.filter(f => f.fieldName === "_hidden");
+
+      if (_hidden.length < 1) {
+        continue;
+      }
+      
+      // Take the current values of all the fields into one array
+      let _hiddenFieldsValues = _hidden.map(hid => {return hid.currentValue});
+
+      // Join the previous arrays into one single string, 
+      // then separate by ";"
+      let _hiddenFields = _hiddenFieldsValues.join().split(";");
+
+      // Trim each entry
+      for (let jj = 0; jj < _hiddenFields.length; jj++) {
+
+        if (_hiddenFields[jj] && _hiddenFields[jj].length > 0) {
+          _hiddenFields[jj] = _hiddenFields[jj].trimStart();
+        }
+      }
+
+      // Filter the list to be only those elements that are not hidden or the _hidden field itself
+      result[ii].profilesFields = result[ii].profilesFields.filter(f => _hiddenFields.indexOf(f.fieldName) === -1);
+      result[ii].profilesFields = result[ii].profilesFields.filter(f => f.fieldName !== "_hidden");
     }
   }
 
