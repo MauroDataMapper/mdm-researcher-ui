@@ -86,7 +86,9 @@ export class DataElementFieldsProviderService {
           const profileSections = result[1].body.sections;
 
           let dataElementProfile = new DataElementFields();
+          dataElementProfile.dataElement = dataElement;
           dataElementProfile.dataElementLabel = dataElement.label;
+
 
           profileSections.forEach(section => {
             section.fields.forEach(field => {
@@ -100,5 +102,62 @@ export class DataElementFieldsProviderService {
         return dataElementProfilesFields;
       }),
     )
+  }
+
+  public handleHiddenFields(result: any) {
+    // Consider _hidden field
+    for (let ii = 0; ii < result.length; ii++) {
+      // Get all _hidden fields
+      let _hidden = result[ii].profilesFields.filter(f => f.fieldName === "_hidden");
+
+      if (_hidden.length < 1) {
+        continue;
+      }
+
+      // Take the current values of all the fields into one array
+      let _hiddenFieldsValues = _hidden.map(hid => {return hid.currentValue});
+
+      // Join the previous arrays into one single string,
+      // then separate by ";"
+      let _hiddenFields = _hiddenFieldsValues.join().split(";");
+
+      // Trim each entry
+      for (let jj = 0; jj < _hiddenFields.length; jj++) {
+
+        if (_hiddenFields[jj] && _hiddenFields[jj].length > 0) {
+          _hiddenFields[jj] = _hiddenFields[jj].trimStart();
+        }
+      }
+
+      // Filter the list to be only those elements that are not hidden or the _hidden field itself
+      result[ii].profilesFields = result[ii].profilesFields.filter(f => _hiddenFields.indexOf(f.fieldName) === -1);
+      result[ii].profilesFields = result[ii].profilesFields.filter(f => f.fieldName !== "_hidden");
+    }
+  }
+
+  public getUniqueColumnsFromFields(result: any, preProfile: string[], postProfile: string[]) {
+    let uniqueColumnName: string[] = [];
+    // Get a list for all the unique names for fields across all dataElements in this tab
+    preProfile.forEach(column => {
+      this.addIfUnique(column, uniqueColumnName);
+    });
+
+    for (let ii = 0; ii < result.length; ii++) {
+      for (let jj = 0; jj < result[ii].profilesFields.length; jj++) {
+        this.addIfUnique(result[ii].profilesFields[jj].fieldName, uniqueColumnName);
+      }
+    }
+
+    postProfile.forEach(column => {
+      this.addIfUnique(column, uniqueColumnName);
+    });
+
+    return uniqueColumnName;
+  }  
+
+  private addIfUnique(element: string, list: string[]) {
+    if (list.indexOf(element) == -1) {
+      list.push(element);
+    }
   }
 }

@@ -1,30 +1,8 @@
-<div class="heading-container">
-    <div fxFlex fxLayout="row" fxLayout.md="row" fxLayout.sm="row" fxLayout.xs="column" fxLayoutAlign="space-around">
-       <div fxFlex fxLayout="row" fxFlex="40" fxFlex.md="40" fxFlex.sm="40" fxFlex.xs="100" fxLayoutAlign="flex-start center">
-          <h4 class="marginless">
-             Data
-             <span *ngIf="isLoadingResults" class="mdm--skeleton-badge">
-                <ngx-skeleton-loader count="1" appearance="circle" [theme]="{'border-radius': '5px', 'height':'31px', 'width':'28px', 'background-color': '#b7bbc5'}"> </ngx-skeleton-loader>
-             </span>
-             <span *ngIf="!isLoadingResults" class="badge badge-element-count">{{totalItemCount}}</span>
-             <i class="ms-3 bi bi-search" (click)="toggleSearch()" matTooltip="Search"></i>
-          </h4>
-       </div>
-       <div fxFlex fxLayout="row" fxFlex="60" fxFlex.md="60" fxFlex.sm="60" fxFlex.xs="100" fxLayoutAlign="flex-end center" fxLayoutAlign.xs="flex-start center"> </div>
-    </div>
- </div>
-<div class="heading-container" [hidden]="hideFilters">
-    <div class="full-width mb-1 mdm--shadow-block">
-       <div class="panel">
-          <input #filters type="search" id="search-models-input" class="form-control outlined-input" [(ngModel)]="searchTerm" placeholder="Search Data Values..." (keyup)="applyFilter()">
-       </div>
-    </div>
- </div>
 <div class="table-responsive" *ngIf="!isLoadingResults">
     <table mat-table [dataSource]="dataSource" class="table table-striped">
        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-          <th mat-header-cell *matHeaderCellDef>{{column}}</th>
-          <td mat-cell *matCellDef="let record">{{record[column]}}</td>
+          <th *matHeaderCellDef>{{column}}</th>
+          <td *matCellDef="let record">{{record[column]}}</td>
        </ng-container>
        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -45,9 +23,6 @@
       </tr>
    </table>
 </div>
- <!--<div class="mdm--mat-pagination" [ngClass]="{'is-hidden':isLoadingResults}">
-    <search-paginator [length]="totalItemCount" [pageSize]="10" showFirstLastButtons></search-paginator>
- </div>-->
  <div [ngClass]="{'is-hidden':isLoadingResults}">
-     <ngb-pagination [collectionSize]="totalItemCount" [page]="0" [boundaryLinks]="true"></ngb-pagination>
+     <ngb-pagination [collectionSize]="totalItemCount" [page]="1" [maxSize]="5" [ellipses]="true"></ngb-pagination>
  </div>

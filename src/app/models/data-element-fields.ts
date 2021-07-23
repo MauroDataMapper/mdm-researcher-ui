@@ -1,4 +1,7 @@
+import { DataElement } from '@maurodatamapper/mdm-resources';
+
 export class DataElementFields {
+    dataElement: DataElement;
     dataElementLabel: string;
     profilesFields: Field[] = [];
 }
