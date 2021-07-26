@@ -35,7 +35,6 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { CardDisplayComponent } from './card-display/card-display.component';
-import { SearchPaginatorComponent } from './shared/search-paginator/search-paginator';
 import { LinkElementComponent } from './shared/utility/link-element/link-element.component';
 import { DataModelComponent } from './data-model/data-model.component';
 import { DataModelPageComponent } from './data-model-page/data-model-page.component';
@@ -77,7 +76,6 @@ import { DataClassDataClassesComponent } from './data-class-data-classes/data-cl
     UiViewComponent,
     SearchComponent,
     CardDisplayComponent,
-    SearchPaginatorComponent,
     LinkElementComponent,
     DataModelComponent,
     DataModelPageComponent,
