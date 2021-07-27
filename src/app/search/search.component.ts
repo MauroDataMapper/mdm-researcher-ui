@@ -4,6 +4,7 @@ import { MdmResourcesService } from "@mdm/services/mdm-resources/mdm-resources.s
 import { Observable, fromEvent } from 'rxjs';
 import { debounceTime, map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { SecurityService } from '@mdm/services/security/security.service';
 
 @Component({
   selector: 'mdm-search',
@@ -24,12 +25,23 @@ export class SearchComponent implements OnInit {
   pageEvent: PageEvent;
 
   constructor(
-    public resources: MdmResourcesService
+    public resources: MdmResourcesService,
+    private securityService: SecurityService
   ) 
   { }
 
   ngOnInit(): void {
     
+    this.securityService
+    .isAuthenticated()
+    .subscribe(result => {
+      if (result) {
+        this.isAuthenticated = true;
+      } else {
+        this.isAuthenticated = false;
+      }
+    });
+
     fromEvent(this.searchInputControl.nativeElement, 'keyup')
     .pipe(map((event: any) => {
       return event.target.value;
@@ -70,11 +82,22 @@ export class SearchComponent implements OnInit {
   }  
 
   search(pageSize: number, offset: number) {
-    this.fetch(pageSize, offset)
-    .subscribe(async (resp) => {
-      this.searchResults = resp.body.items;
-      this.isLoadingResults = false;
-      this.totalItemCount = resp.body.count > 0 ? resp.body.count : 0;
+
+    this.securityService
+    .isAuthenticated()
+    .subscribe(result => {
+      if (result) {
+        this.isAuthenticated = true;
+        this.fetch(pageSize, offset)
+        .subscribe(async (resp) => {
+          this.searchResults = resp.body.items;
+          this.isLoadingResults = false;
+          this.totalItemCount = resp.body.count > 0 ? resp.body.count : 0;
+        });
+      } else {
+        this.isAuthenticated = false;
+      }
     });
+
   }
 }
