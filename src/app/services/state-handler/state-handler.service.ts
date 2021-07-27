@@ -27,4 +27,8 @@ export class StateHandlerService {
   go(name: string, params?: RawParams, options?: TransitionOptions) {
     return this.router.stateService.go(name, params, options);
   }
+
+  reload() {
+    return this.router.stateService.reload();
+  }
 }

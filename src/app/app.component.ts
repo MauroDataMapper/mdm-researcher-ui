@@ -102,10 +102,21 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(() => this.signIn());
 
     this.broadcast
+    .on(BroadcastEvent.SignedIn)
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe(args => {
+      // To remove any ngToast messages specifically sessionExpiry,...
+      this.toastr.toasts.forEach(x => this.toastr.clear(x.toastId));
+      if (args) {
+        this.stateHandler.reload();
+      }
+    });
+
+    this.broadcast
       .on(BroadcastEvent.RequestSignOut)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => this.signOut());
-
+   
     this.subscribeHttpErrorEvent(BroadcastEvent.NotAuthorized, 'app.container.notAuthorized');
     this.subscribeHttpErrorEvent(BroadcastEvent.NotFound, 'app.container.notFound');
     this.subscribeHttpErrorEvent(BroadcastEvent.NotImplemented, 'app.container.notImplemented');

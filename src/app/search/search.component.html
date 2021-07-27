@@ -1,46 +1,32 @@
-<div class="row">
-    <div class="col-12">
-        <h1>Search Page</h1>
-    </div>
-    <div class="col-4">
-        <mat-select (selectionChange)="search(true)" multiple placeholder="Classifications" class="form-control" [(ngModel)]="formData.classifiers">
-            <mat-option *ngFor="let classification of allClassifiers" [value]="classification">
-                {{classification.label}}</mat-option>
-        </mat-select>
-    </div>
-    <div class="col-8">
-        <div class="d-flex justify-content-center">
-            <div class="input-group mb-3">
+<div class="row" [ngClass]="{'is-hidden': !isAuthenticated}">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-center mt-5">
+            <div class="input-group input-group-lg mb-3">
                 <input #searchInputControl type="text"  id="searchBarInput" [(ngModel)]="searchTerm" class="form-control" placeholder="I'm looking for..."> 
                 <span class="input-group-text"><i class="fa fa-search"></i></span>
             </div>
         </div>
     </div>
-
+    <div class="col-lg-2"></div>
 </div>
-<div class="row">
-    <div class="col-12">
-        <div *ngIf="!neverSearched">
-            <div *ngIf="searchResults.length > 0; else elseBlock" >
-                <div>
-                    <h4 class="mt-4">Search result(s) <span class="badge badge-element-count">{{searchCount}}</span> </h4>
-                  </div>                
-                <div *ngFor="let result of searchResults">
-                    <mdm-card-display [item]="result"></mdm-card-display>
-                </div>
-            </div>
-
-            <div class="mdm--mat-pagination">
-                <search-paginator #searchPaginator *ngIf="formData.showSearchResult"
-                                [pageSizeOptions]="[5, 10, 20, 50]"
-                                [length]="searchCount"
-                                [pageSize]="10"
-                                (page)="getServerData($event)"
-                                showFirstLastButtons>
-                </search-paginator>
-            </div>       
-        
-            <ng-template #elseBlock>There are no results for term {{searchTerm}}.</ng-template>
+<div class="row" *ngIf="isAuthenticated && !isLoadingResults">
+    <div class="col-12"> 
+        <h4>{{ totalItemCount }} results</h4>
+    </div>
+    <div class="col-12"> 
+        <div *ngFor="let result of searchResults">
+            <mdm-card-display [item]="result"></mdm-card-display>
         </div>
     </div>
+</div>
+<div class="row" *ngIf="!isAuthenticated">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="alert alert-info text-center">Please log in to browse or search</div>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="mt-5" [ngClass]="{'is-hidden': isLoadingResults || totalItemCount <= 10}">
+    <ngb-pagination [collectionSize]="totalItemCount" [page]="0" [boundaryLinks]="true"></ngb-pagination>
 </div>
