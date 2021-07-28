@@ -1,6 +1,5 @@
 <div class="col-md-12">
-  <h4>{{ section.sectionName }}</h4>
-  <p><strong>{{ section.sectionDescription }}</strong></p>
+  <p class="lead"><strong>{{ section.sectionDescription }}</strong></p>
   <div *ngFor="let field of section.fields" class="mt-1 mb-1">
     <div class="row" *ngIf="displayField(field, section)">
       <div class="col-sm-3">{{ field.fieldName }}</div>
