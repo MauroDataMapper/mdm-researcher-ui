@@ -2,7 +2,6 @@
   <div *ngFor="let section of profileSections[provider.namespace + '|' + provider.name]">
     <div *ngIf="section.fields.length > 0" class="table table-striped" class="row pt-4 pb-4">
       <mdm-item-profile-section [section]="section"></mdm-item-profile-section>
-      <mdm-target-profile-section *ngIf="item.domainType=='DataModel' && section.sectionName=='Temporal'" [item]="item" domainType="dataModels" [providerNamespace]="provider.namespace" [providerName]="provider.name" [sectionName]="section.sectionName"></mdm-target-profile-section>
     </div>
   </div>
 </div>
