@@ -49,9 +49,9 @@ export class DownloadWishlistComponent implements OnInit {
       let myColumns = [];
       worksheet.columns = [];
 
-      this.handleHiddenFields(result);
+      this.dataElementFieldsProvider.handleHiddenFields(result);
 
-      let uniqueColumnName = this.getUniqueColumnsFromFields(result);
+      let uniqueColumnName = this.dataElementFieldsProvider.getUniqueColumnsFromFields(result, ['Variable Name'], ['Request variable (Y/N)', 'Justification Needed (Y/N)', 'Justification']);
 
       // Add the column names
       uniqueColumnName.forEach(columnName => {
@@ -78,59 +78,6 @@ export class DownloadWishlistComponent implements OnInit {
 
   async fetchDataFor(dataModelId: string) {
     return this.dataElementFieldsProvider.getDataElementFields(dataModelId).toPromise();
-  }
-
-  private addIfUnique(element: string, list: string[]) {
-    if (list.indexOf(element) == -1) {
-      list.push(element);
-    }
-  }
-
-  private handleHiddenFields(result: any) {
-    // Consider _hidden field
-    for (let ii = 0; ii < result.length; ii++) {
-      // Get all _hidden fields
-      let _hidden = result[ii].profilesFields.filter(f => f.fieldName === "_hidden");
-
-      if (_hidden.length < 1) {
-        continue;
-      }
-
-      // Take the current values of all the fields into one array
-      let _hiddenFieldsValues = _hidden.map(hid => {return hid.currentValue});
-
-      // Join the previous arrays into one single string,
-      // then separate by ";"
-      let _hiddenFields = _hiddenFieldsValues.join().split(";");
-
-      // Trim each entry
-      for (let jj = 0; jj < _hiddenFields.length; jj++) {
-
-        if (_hiddenFields[jj] && _hiddenFields[jj].length > 0) {
-          _hiddenFields[jj] = _hiddenFields[jj].trimStart();
-        }
-      }
-
-      // Filter the list to be only those elements that are not hidden or the _hidden field itself
-      result[ii].profilesFields = result[ii].profilesFields.filter(f => _hiddenFields.indexOf(f.fieldName) === -1);
-      result[ii].profilesFields = result[ii].profilesFields.filter(f => f.fieldName !== "_hidden");
-    }
-  }
-
-  private getUniqueColumnsFromFields(result: any) {
-    let uniqueColumnName: string[] = [];
-    // Get a list for all the unique names for fields across all dataElements in this tab
-    uniqueColumnName.push('Variable Name');
-    for (let ii = 0; ii < result.length; ii++) {
-      for (let jj = 0; jj < result[ii].profilesFields.length; jj++) {
-        this.addIfUnique(result[ii].profilesFields[jj].fieldName, uniqueColumnName);
-      }
-    }
-    this.addIfUnique('Request variable (Y/N)', uniqueColumnName);
-    this.addIfUnique('Justification Needed (Y/N)', uniqueColumnName);
-    this.addIfUnique('Justification', uniqueColumnName);
-
-    return uniqueColumnName;
   }
 
   private printRows(result: any, uniqueColumnName: string[], worksheet: Worksheet) {

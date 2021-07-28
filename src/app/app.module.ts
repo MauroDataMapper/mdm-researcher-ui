@@ -57,15 +57,11 @@ import { SemanticallyLinkedComponent } from './shared/semantically-linked/semant
 import { SemanticLinksComponent } from './shared/semantic-links/semantic-links.component';
 import { DownloadWishlistComponent } from './wishlist/download-wishlist/download-wishlist.component'; 
 import { ReferenceDataModelComponent } from './reference-data-model/reference-data-model.component';
-import { ReferenceDataModelShortComponent } from './reference-data-model-short/reference-data-model-short.component';
 import { ReferenceDataValuesComponent } from './reference-data-values/reference-data-values.component';
-import { ReferenceDataModelPageComponent } from './reference-data-model-page/reference-data-model-page.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { DataClassDataElementsComponent } from './data-class-data-elements/data-class-data-elements.component';
-import { DataModelDataClassesComponent } from './data-model-data-classes/data-model-data-classes.component';
-import { DataClassDataClassesComponent } from './data-class-data-classes/data-class-data-classes.component';
+import { DataModelElementsProfileTableComponent } from './data-model-elements-profile-table/data-model-elements-profile-table.component';
 
 
 @NgModule({
@@ -97,13 +93,9 @@ import { DataClassDataClassesComponent } from './data-class-data-classes/data-cl
     SemanticallyLinkedComponent,
     SemanticLinksComponent,
     DownloadWishlistComponent,
-    ReferenceDataModelPageComponent,
     ReferenceDataModelComponent,
-    ReferenceDataModelShortComponent,
     ReferenceDataValuesComponent,
-    DataClassDataElementsComponent,
-    DataClassDataClassesComponent,
-    DataModelDataClassesComponent
+    DataModelElementsProfileTableComponent
   ],
   imports: [
     BrowserModule,

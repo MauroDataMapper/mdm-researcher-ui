@@ -1,0 +1,69 @@
+<div class="pt-5 pb-2 col-md-12 bg-white" *ngIf="dataLoaded | async">
+    <div class="table-responsive">
+        <table class="table table-borderless">
+            <thead>
+                <tr class="border border-secondary border-start-0 border-end-0 border-top-0">
+                    <th>Name</th>
+                    <th>Description</th>
+                    <ng-container *ngFor="let column of uniqueColumnName">
+                        <th>{{column}}</th>
+                    </ng-container>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let row of rows">
+                    <tr class="border border-start-0 border-end-0 border-bottom-0">
+                        <td>{{row.dataElement.label}}
+                            <span class="badge bg-light text-dark" *ngIf="row.dataElement.dataType.domainType=='PrimitiveType'">{{ row.dataElement.dataType.label }}</span>
+                            <button *ngIf="row.dataElement.dataType.domainType=='EnumerationType'" class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" attr.data-bs-target="#z{{row.dataElement.dataType.id}}" aria-expanded="false" attr.aria-controls="#z{{row.dataElement.dataType.id}}">
+                                List of values
+                            </button>
+                            <button *ngIf="hasReferenceData(row.dataElement)" class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" attr.data-bs-target="#z{{row.dataElement.dataType.modelResourceId}}" aria-expanded="false" attr.aria-controls="#z{{row.dataElement.dataType.modelResourceId}}">
+                                Coding table
+                            </button>                            
+                        </td>
+                        <td>{{row.dataElement.description}}</td>
+                        <td *ngFor="let cell of row.profileValues">
+                            <ng-container *ngIf="cell===null; else notNullBlock"></ng-container>
+                            <ng-template #notNullBlock>
+                                <ng-container *ngIf="cell.dataType==='BOOLEAN'; else notBooleanBlock">
+                                    <i [ngClass]="{'bi bi-check-lg': cell.currentValue==='true', 'bi bi-x-lg': cell.currentValue==='false'}"></i>
+                                </ng-container>
+                                <ng-template #notBooleanBlock>{{cell.currentValue}}</ng-template>
+                            </ng-template>
+                        </td>
+                    </tr>
+                    <tr *ngIf="row.dataElement.dataType.domainType=='EnumerationType'" class="collapse" id="z{{row.dataElement.dataType.id}}">
+                        <td attr.colspan="{{numberOfTableColumns}}">
+                            <div class="mt-2 mb-3 border border-1 rounded-2 bg-light">
+                                <p class="m-2"><strong>List of values for {{ row.dataElement.label }}</strong></p>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Key</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let enumerationValue of row.dataElement.dataType.enumerationValues">
+                                            <td>{{ enumerationValue.key }}</td>
+                                            <td>{{ enumerationValue.value }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="hasReferenceData(row.dataElement)" class="collapse" id="z{{row.dataElement.dataType.modelResourceId}}">
+                        <td attr.colspan="{{numberOfTableColumns}}">
+                            <div class="mt-2 mb-3 border border-1 rounded-2 bg-light">
+                                <p class="m-2"><strong>Coding table for {{ row.dataElement.label }}</strong></p>
+                                <mdm-reference-data-model [id]="row.dataElement.dataType.modelResourceId"></mdm-reference-data-model>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+     </div>
+</div>
