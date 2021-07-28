@@ -18,7 +18,6 @@ import { Ng2StateDeclaration } from '@uirouter/angular';
 import { AppComponent } from '@mdm/app.component';
 import { HomeComponent } from '@mdm/home/home.component';
 import { AppContainerComponent } from '@mdm/app-container/app-container.component';
-import { AboutComponent } from '@mdm/about/about.component';
 import { NotImplementedComponent } from '@mdm/error/not-implemented/not-implemented.component';
 import { NotAuthorizedComponent } from '@mdm/error/not-authorized/not-authorized.component';
 import { ServerErrorComponent } from '@mdm/error/server-error/server-error.component';
@@ -48,11 +47,6 @@ export const states: Ng2StateDeclaration[] = [
     name: 'app.container.home',
     url: '/home',
     component: HomeComponent
-  },
-  {
-    name: 'app.container.about',
-    url: '/about',
-    component: AboutComponent
   },
   {
     name: 'app.container.search',
