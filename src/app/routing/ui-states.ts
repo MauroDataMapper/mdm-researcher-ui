@@ -24,9 +24,6 @@ import { ServerErrorComponent } from '@mdm/error/server-error/server-error.compo
 import { NotFoundComponent } from '@mdm/error/not-found/not-found.component';
 import { SearchComponent } from '@mdm/search/search.component';
 import { DataModelPageComponent } from '@mdm/data-model-page/data-model-page.component';
-import { DataClassPageComponent } from '@mdm/data-class-page/data-class-page.component';
-import { ChildDataClassPageComponent } from '@mdm/child-data-class-page/child-data-class-page.component';
-import { DataElementPageComponent } from '@mdm/data-element-page/data-element-page.component';
 import { WishlistComponent } from '@mdm/wishlist/wishlist.component';
 
 export const states: Ng2StateDeclaration[] = [
@@ -62,21 +59,6 @@ export const states: Ng2StateDeclaration[] = [
     name: 'app.container.dataModel',
     url: '/dataModel/:id',
     component: DataModelPageComponent
-  },
-  {
-    name: 'app.container.dataClass',
-    url: '/dataModel/:dataModelId/dataClass/:id',
-    component: DataClassPageComponent
-  },  
-  {
-    name: 'app.container.childDataClass',
-    url: '/dataModel/:dataModelId/dataClass/:parentDataClassId/dataClass/:id',
-    component: ChildDataClassPageComponent
-  },    
-  {
-    name: 'app.container.dataElement',
-    url: '/dataModel/:dataModelId/dataClass/:dataClassId/dataElement/:id',
-    component: DataElementPageComponent
   },
   {
     name: 'app.container.notImplemented',
