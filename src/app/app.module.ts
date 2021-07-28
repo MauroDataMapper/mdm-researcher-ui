@@ -50,9 +50,6 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { AddToWishlistButtonComponent } from './wishlist/add-to-wishlist-button/add-to-wishlist-button.component'; 
 import { ProfileComponent } from './shared/profile/profile.component';
 import { ProfileSectionComponent } from './shared/profile/profile-section/profile-section.component';
-import { TargetProfileSectionComponent } from './shared/profile/target-profile-section/target-profile-section.component';
-import { ProfileSectionContentsComponent } from './shared/profile/profile-section-contents/profile-section-contents.component';
-import { ProfileShortComponent } from './shared/profile-short/profile-short.component';
 import { SemanticallyLinkedComponent } from './shared/semantically-linked/semantically-linked.component';
 import { SemanticLinksComponent } from './shared/semantic-links/semantic-links.component';
 import { DownloadWishlistComponent } from './wishlist/download-wishlist/download-wishlist.component'; 
@@ -87,9 +84,6 @@ import { DataModelElementsProfileTableComponent } from './data-model-elements-pr
     AddToWishlistButtonComponent,
     ProfileComponent,
     ProfileSectionComponent,
-    ProfileSectionContentsComponent,
-    TargetProfileSectionComponent,
-    ProfileShortComponent,
     SemanticallyLinkedComponent,
     SemanticLinksComponent,
     DownloadWishlistComponent,
