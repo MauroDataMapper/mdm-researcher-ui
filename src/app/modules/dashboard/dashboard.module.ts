@@ -17,7 +17,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from '@mdm/home/home.component';
-import { AboutComponent } from '@mdm/about/about.component';
 import { NavbarComponent } from '@mdm/layout/navbar/navbar.component';
 import { MaterialModule } from '../material/material.module';
 import { UIRouterModule } from '@uirouter/angular';
@@ -40,7 +39,6 @@ import { LoadingIndicatorComponent } from '@mdm/shared/loading-indicator/loading
     FooterComponent,
     UserComponent,
     HomeComponent,
-    AboutComponent,
     ErrorComponent,
     NotImplementedComponent,
     NotAuthorizedComponent,
@@ -69,7 +67,6 @@ import { LoadingIndicatorComponent } from '@mdm/shared/loading-indicator/loading
     FooterComponent,
     UserComponent,
     HomeComponent,
-    AboutComponent,
     ErrorComponent,
     NotImplementedComponent,
     NotAuthorizedComponent,
