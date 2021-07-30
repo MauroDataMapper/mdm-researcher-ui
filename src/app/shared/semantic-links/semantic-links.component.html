@@ -1,12 +1,12 @@
 <div class="row lead m-2 ms-0" *ngIf="dataLoaded | async">
-    <div class="col-md-12">
-        <p>This tab provides contextual links to semantically linked items (if any).</p>
+    <div class="col-md-12" *ngIf="semanticLinks.length > 0">
+        <p>Datasets in DataLoch can be Base Level (data directly from provider) or Derived (with some level of processing by DataLoch). To view underlying datasets from which the current dataset was derived, or Derived datasets that the current dataset contributes to, follow the links below:</p>
     </div>
 </div>
 <div class="row lead m2 ms-0" *ngIf="dataLoaded | async">
     <div class="col-md-12" *ngFor="let link of semanticLinks">
         <mdm-link-element [item]="link.sourceMultiFacetAwareItem"></mdm-link-element>
-        <span> {{ link.linkType }} </span>
+        <span> is derived from </span>
         <mdm-link-element [item]="link.targetMultiFacetAwareItem"></mdm-link-element>
     </div> 
 </div>
