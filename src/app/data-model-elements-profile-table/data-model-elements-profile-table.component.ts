@@ -13,7 +13,7 @@ export class DataModelElementsProfileTableComponent implements OnInit {
 
   uniqueColumnName: string[] = [];
   rows: any[] = [];
-  numberOfTableColumns: number = 2;
+  numberOfTableColumns: number = 3;
 
   dataLoaded: Promise<boolean>;
 
@@ -32,7 +32,8 @@ export class DataModelElementsProfileTableComponent implements OnInit {
 
 
     this.uniqueColumnName = this.dataElementFieldsProvider.getUniqueColumnsFromFields(result, [], []);
-    this.numberOfTableColumns = this.uniqueColumnName.length + 2;
+    //Plus 3 because we add name, description and type
+    this.numberOfTableColumns = this.uniqueColumnName.length + 3;
     this.makeRows(result, this.uniqueColumnName);
 
     this.dataLoaded = Promise.resolve(true);

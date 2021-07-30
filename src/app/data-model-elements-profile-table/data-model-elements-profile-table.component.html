@@ -5,6 +5,7 @@
                 <tr class="border border-secondary border-start-0 border-end-0 border-top-0">
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Type</th>
                     <ng-container *ngFor="let column of uniqueColumnName">
                         <th>{{column}}</th>
                     </ng-container>
@@ -13,16 +14,17 @@
             <tbody>
                 <ng-container *ngFor="let row of rows">
                     <tr class="border border-start-0 border-end-0 border-bottom-0">
-                        <td>{{row.dataElement.label}}
+                        <td>{{row.dataElement.label}}</td>
+                        <td>{{row.dataElement.description}}</td>
+                        <td>
                             <span class="badge bg-light text-dark" *ngIf="row.dataElement.dataType.domainType=='PrimitiveType'">{{ row.dataElement.dataType.label }}</span>
                             <button *ngIf="row.dataElement.dataType.domainType=='EnumerationType'" class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" attr.data-bs-target="#z{{row.dataElement.dataType.id}}" aria-expanded="false" attr.aria-controls="#z{{row.dataElement.dataType.id}}">
                                 List of values
                             </button>
                             <button *ngIf="hasReferenceData(row.dataElement)" class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" attr.data-bs-target="#z{{row.dataElement.dataType.modelResourceId}}" aria-expanded="false" attr.aria-controls="#z{{row.dataElement.dataType.modelResourceId}}">
                                 Coding table
-                            </button>                            
+                            </button>       
                         </td>
-                        <td>{{row.dataElement.description}}</td>
                         <td *ngFor="let cell of row.profileValues">
                             <ng-container *ngIf="cell===null; else notNullBlock"></ng-container>
                             <ng-template #notNullBlock>
