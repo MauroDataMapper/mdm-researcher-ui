@@ -25,7 +25,9 @@ export const environment = {
   name: 'development',
   appTitle: 'Researcher UI',
   appDescription: 'Researcher UI',
-  checkSessionExpiryTimeout: 300000
+  checkSessionExpiryTimeout: 300000,
+  profileProviderOrder: ["Concept+Definition+Profile", "Base+Concept+Profile"],
+  profileSectionOrder: [['Documentation', 'Coverage', 'Lineage', 'Temporal', 'Observations'], ['Provenance', 'IG variables']]
 };
 
 /*

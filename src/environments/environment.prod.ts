@@ -21,5 +21,7 @@ export const environment = {
   appTitle: 'Researcher UI',
   appDescription: 'Researcher UI',
   apiEndpoint: '../mauro/api',
-  checkSessionExpiryTimeout: 300000  
+  checkSessionExpiryTimeout: 300000,
+  profileProviderOrder: ["Concept+Definition+Profile", "Base+Concept+Profile"],
+  profileSectionOrder: [['Documentation', 'Coverage', 'Lineage', 'Temporal', 'Observations'], ['Provenance', 'IG variables']]
 };
