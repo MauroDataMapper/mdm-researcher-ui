@@ -17,7 +17,8 @@ export class ReferenceDataValuesProviderService {
   public getReferenceDataValueFromId (referenceDataModelId: string) {
     // Request as rows
     const options = {
-      asRows: true
+      asRows: true,
+      all: true
     };
     return this.resourcesService.referenceDataValue.list(referenceDataModelId, options)
     .pipe(

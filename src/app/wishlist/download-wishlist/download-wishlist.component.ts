@@ -6,6 +6,8 @@ import { LocalStorageHandlerService } from '@mdm/services/local-storage/local-st
 import { DataElementFieldsProviderService } from '@mdm/services/data-providers/data-element-fields-provider.service';
 import { ReferenceDataValuesProviderService } from '@mdm/services/data-providers/reference-data-values-provider.service';
 import { MdmResourcesService } from '@mdm/services/mdm-resources/mdm-resources.service';
+import { DataElement } from '@maurodatamapper/mdm-resources';
+import { DataElementFields } from '@mdm/models/data-element-fields';
 
 @Component({
   selector: 'mdm-download-wishlist',
@@ -16,6 +18,7 @@ export class DownloadWishlistComponent implements OnInit {
 
   localWishlist: catalogueItem[] = [];
   requiresJustificationReferenceData: boolean = false;
+  filterOptions: DataElement[] = [];
 
   constructor(
     private localStorage: LocalStorageHandlerService,
@@ -31,6 +34,7 @@ export class DownloadWishlistComponent implements OnInit {
   }
 
   async exportToSpreadsheet() {
+    this.filterOptions = [];
     let workbook = new Workbook();
 
     // For each element in the wish list
@@ -49,6 +53,10 @@ export class DownloadWishlistComponent implements OnInit {
       let myColumns = [];
       worksheet.columns = [];
 
+      //Need to check for filter options before removing hidden fields, becasue FilterOption is probably a hidden field
+      let filterOptions: DataElement[] = this.checkFilterOptions(result);
+      this.filterOptions = this.filterOptions.concat(filterOptions);
+
       this.dataElementFieldsProvider.handleHiddenFields(result);
 
       let uniqueColumnName = this.dataElementFieldsProvider.getUniqueColumnsFromFields(result, ['Variable Name'], ['Request variable (Y/N)', 'Justification Needed (Y/N)', 'Justification']);
@@ -63,6 +71,10 @@ export class DownloadWishlistComponent implements OnInit {
       worksheet.columns = myColumns;
 
       this.printRows(result, uniqueColumnName, worksheet);
+
+      if (filterOptions.length > 0) {
+        this.printFilterOptionsMessage(worksheet, this.filterOptions.length - 1, filterOptions.length);
+      }
     }
 
     // If any of the elements of some DM need more information about justification
@@ -73,7 +85,12 @@ export class DownloadWishlistComponent implements OnInit {
       await this.addTabsWithJustificationReferenceData(workbook, "SensitiveVariablesSuggestions", 2);
     }
 
-    this.downloadAsFile(workbook)
+    //If there are filter option then add extra tabs
+    for (let ii = 0; ii < this.filterOptions.length; ii++) {
+      await this.addTabWithFilterOptions(workbook, this.filterOptions[ii], ii);
+    }
+
+    this.downloadAsFile(workbook);
   }
 
   async fetchDataFor(dataModelId: string) {
@@ -120,6 +137,20 @@ export class DownloadWishlistComponent implements OnInit {
 
       worksheet.addRow(rowValues);
     }
+  }
+
+  private printFilterOptionsMessage(worksheet: Worksheet, fromTab, countTab) {
+    //Two blank rows to separate message from the main data
+    worksheet.addRow([]);
+    worksheet.addRow([]);
+    let tabs: string[] = [];
+
+    for (let ii = fromTab; ii < fromTab + countTab; ii++) {
+        tabs.push("Filter Options (" + ii + ")");
+    }
+    let rowValues = [];
+    rowValues[0] = "Filter options are available in " + tabs.join(", ") + " tab(s)";
+    worksheet.addRow(rowValues);
   }
 
   private async addTabsWithJustificationReferenceData (workbook: Workbook, referenceDataModelName: string, index: number) {
@@ -172,5 +203,55 @@ export class DownloadWishlistComponent implements OnInit {
       var currentMonth: number = today.getMonth()+1
       fs.saveAs(blob, `DataLoch_Request_Form_${today.getDate()}_${currentMonth}_${today.getFullYear()}_${today.getHours()}_${today.getMinutes()}_${today.getSeconds()}_${today.getMilliseconds()}.xlsx`);
     });
+  }
+
+  private checkFilterOptions(result: any)
+  {
+    let filterOptions: DataElement[] = [];
+
+    if (result) {
+      for (let ii = 0; ii < result.length; ii++) {
+        let fields: DataElementFields = result[ii];
+        let de: DataElement = fields.dataElement;
+
+        // Find the FilterOption field
+        let _filterOption = fields.profilesFields.filter(f => f.fieldName === "FilterOption" && f.dataType === 'BOOLEAN' && f.currentValue === 'true');
+
+        if (_filterOption.length === 1 
+          && de.dataType.domainType === 'ModelDataType'
+          && de.dataType.modelResourceDomainType === 'ReferenceDataModel') {
+          filterOptions.push(de);
+        }
+      }
+    }
+
+    return filterOptions;
+  }
+
+  private async addTabWithFilterOptions (workbook: Workbook, de: DataElement, index) {
+
+    const referenceDataValues = await this.referenceDataValueProvider.getReferenceDataValueFromId(de.dataType.modelResourceId).toPromise();
+
+    if (!referenceDataValues || referenceDataValues.length < 1) {
+      return;
+    }
+
+   this.handleFilterOptionsWorksheet(referenceDataValues, workbook, index);
+  }
+
+  private handleFilterOptionsWorksheet(referenceDataValues: any, workbook: Workbook, index) {
+    let columns = Object.keys(referenceDataValues[0]);
+
+    let worksheet = workbook.addWorksheet("Filter Options (" + index + ")");
+    let worksheetColumns = [];
+    columns.forEach(c => {
+      worksheetColumns.push({ header: c, key: c, width:20 });
+    });
+
+    worksheet.columns = worksheetColumns;
+
+    for (let ii = 0; ii < referenceDataValues.length; ii++) {
+      worksheet.addRow(referenceDataValues[ii]);
+    }
   }
 }
