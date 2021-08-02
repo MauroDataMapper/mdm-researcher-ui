@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-//import { catalogueItem } from '@shared/shared-classes';
+import { environment } from '@env/environment';
 import { MdmResourcesService } from '@mdm/services/mdm-resources/mdm-resources.service';
-import { ModelDomainType, Uuid, CatalogueItem } from '@maurodatamapper/mdm-resources'; 
+import { CatalogueItem } from '@maurodatamapper/mdm-resources'; 
 
 @Component({
   selector: 'mdm-item-profile',
@@ -25,19 +25,31 @@ export class ProfileComponent implements OnInit {
     this.resourcesService.profileResource.usedProfiles(this.domainType, this.item.id)
     .subscribe((resp) => {
       resp.body.forEach((provider) => {
-          this.profileProviders.push(provider);
-      });
-
-      //For each dynamic profile provider that applies this item, list the profile sections in
-      //this.profileSections, indexed by [provider.namespace | provider.name]
-      this.profileProviders.forEach((provider) => {
         this.resourcesService.profileResource
         .profile(this.domainType, this.item.id, provider.namespace, provider.name)
         .subscribe((resp) => {
-          this.profileSections[provider.namespace + '|' + provider.name] = resp.body.sections;
+          this.profileSections.push(resp.body.sections.sort(this.compare));
         });
       });
     });
   }
 
+  /**
+   * 
+   * @param a A profile section
+   * @param b A profile section
+   * @returns -1, 0 or 1 Comparison to sort by the desired order by sectionName
+   */
+  private compare(a, b) {
+    let ia = environment.profileSectionOrder.indexOf(a.sectionName);
+    let ib = environment.profileSectionOrder.indexOf(b.sectionName);
+
+    if ( ia < ib ){
+      return -1;
+    }
+    if ( ia > ib ){
+      return 1;
+    }
+    return 0;
+  }
 }

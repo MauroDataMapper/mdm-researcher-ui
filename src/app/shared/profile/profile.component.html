@@ -1,6 +1,6 @@
 <div class="row m-2 ms-0">
-  <div *ngFor="let provider of profileProviders">
-    <div *ngFor="let section of profileSections[provider.namespace + '|' + provider.name]">
+  <div *ngFor="let provider of profileSections">
+    <div *ngFor="let section of provider">
       <div *ngIf="section.fields.length > 0" class="row pt-4 pb-4">
         <mdm-item-profile-section [section]="section"></mdm-item-profile-section>
       </div>
