@@ -19,30 +19,61 @@ export class ProfileComponent implements OnInit {
     private resourcesService: MdmResourcesService
   ) { }
 
-  ngOnInit(): void {
+ ngOnInit(): void {
 
     //Get used dynamic profile providers
     this.resourcesService.profileResource.usedProfiles(this.domainType, this.item.id)
     .subscribe((resp) => {
-      resp.body.forEach((provider) => {
-        this.resourcesService.profileResource
-        .profile(this.domainType, this.item.id, provider.namespace, provider.name)
-        .subscribe((resp) => {
-          this.profileSections.push(resp.body.sections.sort(this.compare));
-        });
+      this.profileProviders = resp.body.sort(this.compareProvider);
+      this.profileProviders.forEach((provider) => {
+        this.getProfileSections(this.domainType, this.item.id, provider);
       });
     });
   }
 
+
+  private async getProfileSections(domainType, id, provider): Promise<any> {
+    let dataLoaded: Promise<boolean>;
+
+    /*
+     * Sort sections within a profile provider
+     */
+    let comparer = function(a, b){
+      let iProfile = environment.profileProviderOrder.indexOf(provider.name);
+
+      if (iProfile > -1) {
+        let sectionOrder = environment.profileSectionOrder[iProfile];
+        let ia = sectionOrder.indexOf(a.sectionName);
+        let ib = sectionOrder.indexOf(b.sectionName);
+
+        if ( ia < ib ){
+          return -1;
+        }
+        if ( ia > ib ){
+          return 1;
+        }
+      }
+      return 0;
+    };
+    this.resourcesService.profileResource
+    .profile(domainType, id, provider.namespace, provider.name)
+    .subscribe((resp) => {
+      provider.profileSections = resp.body.sections.sort(comparer);
+      dataLoaded = Promise.resolve(true);
+    });
+
+    return dataLoaded;
+  }
+
   /**
-   * 
-   * @param a A profile section
-   * @param b A profile section
-   * @returns -1, 0 or 1 Comparison to sort by the desired order by sectionName
+   * Sort profile providers by the order in environment.profileProviderOrder
+   * @param a A profile provider
+   * @param b A profiole provider
+   * @returns Comparison result
    */
-  private compare(a, b) {
-    let ia = environment.profileSectionOrder.indexOf(a.sectionName);
-    let ib = environment.profileSectionOrder.indexOf(b.sectionName);
+  private compareProvider(a, b) {
+    let ia = environment.profileProviderOrder.indexOf(a.name);
+    let ib = environment.profileProviderOrder.indexOf(b.name);
 
     if ( ia < ib ){
       return -1;
@@ -50,6 +81,7 @@ export class ProfileComponent implements OnInit {
     if ( ia > ib ){
       return 1;
     }
+
     return 0;
   }
 }
