@@ -33,7 +33,7 @@
                 <ng-container *ngFor="let row of rows">
                     <tr class="border border-start-0 border-end-0 border-bottom-0">
                         <td>{{row.dataElement.label}}</td>
-                        <td>{{row.dataElement.description}}</td>
+                        <td><mdm-html-markdown [content]="row.dataElement.description"></mdm-html-markdown></td>
                         <td>
                             <span class="badge bg-light text-dark" *ngIf="row.dataElement.dataType.domainType=='PrimitiveType'">{{ row.dataElement.dataType.label }}</span>
                             <button *ngIf="row.dataElement.dataType.domainType=='EnumerationType'" class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" attr.data-bs-target="#z{{row.dataElement.dataType.id}}" aria-expanded="false" attr.aria-controls="#z{{row.dataElement.dataType.id}}">
@@ -49,7 +49,7 @@
                                 <ng-container *ngIf="cell.dataType==='BOOLEAN'; else notBooleanBlock">
                                     <i [ngClass]="{'bi bi-check-lg': cell.currentValue==='true', 'bi bi-x-lg': cell.currentValue==='false'}"></i>
                                 </ng-container>
-                                <ng-template #notBooleanBlock>{{cell.currentValue}}</ng-template>
+                                <ng-template #notBooleanBlock><mdm-html-markdown [content]="cell.currentValue"></mdm-html-markdown></ng-template>
                             </ng-template>
                         </td>
                     </tr>

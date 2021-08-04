@@ -23,7 +23,7 @@
     </div>
     
     <mdm-classifiers [classifiers]="dataModel.classifiers"></mdm-classifiers>
-    <p *ngIf="dataModel.description" class="mt-4 lead">{{ dataModel.description }}</p>
+    <mdm-html-markdown *ngIf="dataModel.description" class="mt-4 lead" [content]="dataModel.description"></mdm-html-markdown>
 </div>
 
 <div class="p-5 col-md-12 bg-white" *ngIf="dataLoaded | async">

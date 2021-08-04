@@ -53,6 +53,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataModelElementsProfileTableComponent } from './data-model-elements-profile-table/data-model-elements-profile-table.component';
+import { HtmlMarkdownComponent } from './html-markdown/html-markdown.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { DataModelElementsProfileTableComponent } from './data-model-elements-pr
     DownloadWishlistComponent,
     ReferenceDataModelComponent,
     ReferenceDataValuesComponent,
-    DataModelElementsProfileTableComponent
+    DataModelElementsProfileTableComponent,
+    HtmlMarkdownComponent
   ],
   imports: [
     BrowserModule,
