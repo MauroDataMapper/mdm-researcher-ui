@@ -16,12 +16,4 @@
 
  SPDX-License-Identifier: Apache-2.0
 -->
-<div class="card mt-3">
-    <div class="card-header">
-        <mdm-link-element [item]="item"></mdm-link-element>
-        <span class="ms-4 badge rounded-pill bg-info">{{item.domainType}}</span>
-    </div>
-    <div class="card-body">
-        <mdm-html-markdown class="card-text" [content]="item.description"></mdm-html-markdown>
-    </div>
-</div>
+<div [innerHtml]="preparedContent"></div>
